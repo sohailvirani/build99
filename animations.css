@@ -1,0 +1,51 @@
+
+/* Scroll Animations */
+.reveal, .reveal-left, .reveal-right, .reveal-zoom {
+    opacity: 0;
+    transition: all 0.8s ease-out;
+    will-change: opacity, transform;
+}
+
+.reveal {
+    transform: translateY(30px);
+}
+
+.reveal-left {
+    transform: translateX(-50px);
+}
+
+.reveal-right {
+    transform: translateX(50px);
+}
+
+.reveal-zoom {
+    transform: scale(0.9);
+}
+
+/* Active States */
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-left.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.reveal-right.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.reveal-zoom.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Staggered Delays */
+.delay-100 { transition-delay: 0.1s; }
+.delay-200 { transition-delay: 0.2s; }
+.delay-300 { transition-delay: 0.3s; }
+.delay-400 { transition-delay: 0.4s; }
+.delay-500 { transition-delay: 0.5s; }
