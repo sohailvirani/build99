@@ -63,35 +63,30 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function setActiveNavigation() {
-    const currentPath = window.location.pathname;
+    const currentPath = window.location.pathname.replace(/\/index\.html$/, '/');
     const allNavLinks = document.querySelectorAll('.header-nav a, .mobile-nav a');
+
+    // First, remove active class from all links
+    allNavLinks.forEach(link => link.classList.remove('active'));
 
     allNavLinks.forEach(link => {
         const href = link.getAttribute('href');
         if (!href || href === '#' || href.startsWith('http') || href.startsWith('tel:') || href.startsWith('mailto:')) return;
 
-        // Create a URL object for easier comparison if possible, or just clean up the href
-        // Since links might be relative like "services/surveying/" or "../../services/surveying/"
-        // and currentPath is absolute like "/services/surveying/"
-        
         let isActive = false;
 
-        // Home page check
-        if (href === './' || href === 'index.html') {
-            isActive = currentPath.endsWith('/') || currentPath.endsWith('index.html');
-        } else {
-            // Get the absolute path the link points to
-            // This is a trick: create an <a> element and set its href to get the absolute path
-            const tempLink = document.createElement('a');
-            tempLink.href = link.href;
-            const linkPath = tempLink.pathname;
+        // Get the absolute path the link points to
+        const tempLink = document.createElement('a');
+        tempLink.href = link.href;
+        let linkPath = tempLink.pathname.replace(/\/index\.html$/, '/');
 
-            if (currentPath === linkPath || currentPath === linkPath + '/' || currentPath + '/' === linkPath) {
-                isActive = true;
-            } else if (linkPath !== '/' && currentPath.includes(linkPath)) {
-                // For sub-pages or if the link is a directory
-                isActive = true;
-            }
+        // Ensure both paths end with a slash for exact comparison
+        if (!linkPath.endsWith('/')) linkPath += '/';
+        let comparePath = currentPath;
+        if (!comparePath.endsWith('/')) comparePath += '/';
+
+        if (comparePath === linkPath) {
+            isActive = true;
         }
 
         if (isActive) {
