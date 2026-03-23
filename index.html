@@ -121,35 +121,35 @@
                     <img src="images/Popular categories/pop1.webp" alt="Survey & Geotechnical">
                     <div class="popular-content">
                         <h3>Survey & Geotechnical</h3>
-                        <a href="#" class="btn-explore">Submit Your Requirement</a>
+                        <button class="btn-explore modal-trigger" data-service="Topographical Land Survey">Submit Your Requirement</button>
                     </div>
                 </div>
                 <div class="popular-card reveal-zoom delay-200">
                     <img src="images/Popular categories/pop2.webp" alt="Architectural & Design">
                     <div class="popular-content">
                         <h3>Architectural & Design</h3>
-                        <a href="#" class="btn-explore">Submit Your Requirement</a>
+                        <button class="btn-explore modal-trigger" data-service="Architectural Planning & Building Design">Submit Your Requirement</button>
                     </div>
                 </div>
                 <div class="popular-card reveal-zoom delay-300">
                     <img src="images/Popular categories/pop3.webp" alt="Construction Services">
                     <div class="popular-content">
                         <h3>Construction Services</h3>
-                        <a href="#" class="btn-explore">Submit Your Requirement</a>
+                        <button class="btn-explore modal-trigger" data-service="Individual House Construction">Submit Your Requirement</button>
                     </div>
                 </div>
                 <div class="popular-card reveal-zoom delay-400">
                     <img src="images/Popular categories/pop4.webp" alt="Quality Assurance">
                     <div class="popular-content">
                         <h3>Quality Assurance</h3>
-                        <a href="#" class="btn-explore">Submit Your Requirement</a>
+                        <button class="btn-explore modal-trigger" data-service="Independent Construction Quality Inspection">Submit Your Requirement</button>
                     </div>
                 </div>
                 <div class="popular-card reveal-zoom delay-500">
                     <img src="images/Popular categories/pop5.webp" alt="Infra & Development">
                     <div class="popular-content">
                         <h3>Infra & Development</h3>
-                        <a href="#" class="btn-explore">Submit Your Requirement</a>
+                        <button class="btn-explore modal-trigger" data-service="Road & Highway Infrastructure Projects">Submit Your Requirement</button>
                     </div>
                 </div>
             </div>
@@ -242,6 +242,25 @@
 
     <!-- Footer Container -->
     <div id="footer-placeholder"></div>
+
+    <!-- Modal Form -->
+    <div id="survey-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <img src="images/banner%201.webp" alt="Modal Header" class="modal-header-img">
+            <div class="modal-body">
+                <div class="progress-container">
+                    <div class="progress-bar"></div>
+                </div>
+                <form id="requirement-form" class="modal-form">
+                    <input type="hidden" name="service_heading" id="modal-service-heading" value="Service query">
+                    <div id="dynamic-fields">
+                        <!-- Steps are dynamically injected here by JavaScript -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <!-- Main Script -->
     <script src="js/script.js"></script>

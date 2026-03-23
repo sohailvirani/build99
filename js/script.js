@@ -1069,22 +1069,24 @@ function initModals() {
         dynamicFieldsContainer.innerHTML = '';
         steps = [];
 
-        // 1. Name Step
-        steps.push(createStep('What is your full name?', 'name', 'text', 'Enter your name', true));
-        
-        // 2. Phone Step
-        steps.push(createStep('What is your mobile number?', 'phone', 'tel', 'Enter your mobile number', true));
-
-        // 3. Dynamic Config Steps
+        // 1. Dynamic Config Steps
         config.forEach(field => {
             steps.push(createStep(field.label, field.name, field.type, field.label, field.required, field.options));
         });
 
-        // 4. Requirement Step
+        // 2. Requirement Step
         steps.push(createStep('Any specific requirement?', 'requirement', 'textarea', 'Describe your requirement in detail', false));
 
-        // 5. Email Step (Last)
-        steps.push(createStep('What is your email address?', 'email', 'email', 'Enter your email address', true));
+        // 3. Contact Step (Combined Last Step)
+        steps.push({ 
+            label: 'Contact Information', 
+            type: 'contact_combined',
+            fields: [
+                { label: 'Full Name*', name: 'name', type: 'text', placeholder: 'Enter your name', required: true },
+                { label: 'Mobile Number*', name: 'phone', type: 'tel', placeholder: 'Enter your mobile number', required: true },
+                { label: 'Email Address*', name: 'email', type: 'email', placeholder: 'Enter your email address', required: true }
+            ]
+        });
 
         // Append all steps to container
         steps.forEach((step, index) => {
@@ -1100,65 +1102,86 @@ function initModals() {
             // Add Error Message placeholder
             const errorMsg = document.createElement('div');
             errorMsg.className = 'error-message';
-            errorMsg.innerText = 'Please provide an answer.';
+            errorMsg.innerText = 'Please fill all required fields.';
             stepDiv.appendChild(errorMsg);
 
-            // Add Input Group
-            const group = document.createElement('div');
-            group.className = 'form-group';
-            
-            if (step.type === 'textarea') {
-                const input = document.createElement('textarea');
-                input.name = step.name;
-                input.placeholder = step.placeholder;
-                input.rows = 4;
-                if (step.required) input.required = true;
-                group.appendChild(input);
-            } else if (step.type === 'select') {
-                const select = document.createElement('select');
-                select.name = step.name;
-                if (step.required) select.required = true;
-                
-                const defaultOpt = document.createElement('option');
-                defaultOpt.value = '';
-                defaultOpt.disabled = true;
-                defaultOpt.selected = true;
-                defaultOpt.innerText = `Select an option`;
-                select.appendChild(defaultOpt);
-                
-                step.options.forEach(opt => {
-                    const o = document.createElement('option');
-                    o.value = opt;
-                    o.innerText = opt;
-                    select.appendChild(o);
-                });
-                group.appendChild(select);
-            } else if (step.type === 'radio') {
-                const radioGroup = document.createElement('div');
-                radioGroup.className = 'radio-group';
-                step.options.forEach(opt => {
+            if (step.type === 'contact_combined') {
+                // Special rendering for combined contact step
+                step.fields.forEach(field => {
+                    const group = document.createElement('div');
+                    group.className = 'form-group';
+                    
                     const label = document.createElement('label');
-                    label.className = 'radio-item';
-                    const radio = document.createElement('input');
-                    radio.type = 'radio';
-                    radio.name = step.name;
-                    radio.value = opt;
-                    if (step.required) radio.required = true;
-                    label.appendChild(radio);
-                    label.appendChild(document.createTextNode(opt));
-                    radioGroup.appendChild(label);
+                    label.innerText = field.label;
+                    group.appendChild(label);
+                    
+                    const input = document.createElement('input');
+                    input.type = field.type;
+                    input.name = field.name;
+                    input.placeholder = field.placeholder;
+                    if (field.required) input.required = true;
+                    group.appendChild(input);
+                    
+                    stepDiv.appendChild(group);
                 });
-                group.appendChild(radioGroup);
             } else {
-                const input = document.createElement('input');
-                input.type = step.type;
-                input.name = step.name;
-                input.placeholder = step.placeholder;
-                if (step.required) input.required = true;
-                group.appendChild(input);
+                // Standard rendering for single-field steps
+                const group = document.createElement('div');
+                group.className = 'form-group';
+                
+                if (step.type === 'textarea') {
+                    const input = document.createElement('textarea');
+                    input.name = step.name;
+                    input.placeholder = step.placeholder;
+                    input.rows = 4;
+                    if (step.required) input.required = true;
+                    group.appendChild(input);
+                } else if (step.type === 'select') {
+                    const select = document.createElement('select');
+                    select.name = step.name;
+                    if (step.required) select.required = true;
+                    
+                    const defaultOpt = document.createElement('option');
+                    defaultOpt.value = '';
+                    defaultOpt.disabled = true;
+                    defaultOpt.selected = true;
+                    defaultOpt.innerText = `Select an option`;
+                    select.appendChild(defaultOpt);
+                    
+                    step.options.forEach(opt => {
+                        const o = document.createElement('option');
+                        o.value = opt;
+                        o.innerText = opt;
+                        select.appendChild(o);
+                    });
+                    group.appendChild(select);
+                } else if (step.type === 'radio') {
+                    const radioGroup = document.createElement('div');
+                    radioGroup.className = 'radio-group';
+                    step.options.forEach(opt => {
+                        const label = document.createElement('label');
+                        label.className = 'radio-item';
+                        const radio = document.createElement('input');
+                        radio.type = 'radio';
+                        radio.name = step.name;
+                        radio.value = opt;
+                        if (step.required) radio.required = true;
+                        label.appendChild(radio);
+                        label.appendChild(document.createTextNode(opt));
+                        radioGroup.appendChild(label);
+                    });
+                    group.appendChild(radioGroup);
+                } else {
+                    const input = document.createElement('input');
+                    input.type = step.type;
+                    input.name = step.name;
+                    input.placeholder = step.placeholder;
+                    if (step.required) input.required = true;
+                    group.appendChild(input);
+                }
+                
+                stepDiv.appendChild(group);
             }
-            
-            stepDiv.appendChild(group);
 
             // Add Buttons
             const btnGroup = document.createElement('div');
