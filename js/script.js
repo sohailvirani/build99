@@ -117,14 +117,16 @@ function setActiveNavigation() {
 }
 
 function initServiceCarousel() {
-    const track = document.querySelector('.carousel-track');
-    if (!track) return;
+    const tracks = document.querySelectorAll('.carousel-track');
+    if (tracks.length === 0) return;
     
-    // Duplicate slides for seamless loop
-    const slides = Array.from(track.children);
-    slides.forEach(slide => {
-        const clone = slide.cloneNode(true);
-        track.appendChild(clone);
+    tracks.forEach(track => {
+        // Duplicate slides for seamless loop
+        const slides = Array.from(track.children);
+        slides.forEach(slide => {
+            const clone = slide.cloneNode(true);
+            track.appendChild(clone);
+        });
     });
 }
 
