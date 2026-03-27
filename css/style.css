@@ -1168,6 +1168,52 @@ img {
     animation: fadeIn 0.4s ease;
 }
 
+.otp-input-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 25px 0;
+}
+
+.otp-input {
+    width: 50px;
+    height: 60px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #0548af;
+    transition: all 0.3s;
+}
+
+.otp-input:focus {
+    border-color: #0548af;
+    box-shadow: 0 0 0 4px rgba(5, 72, 175, 0.1);
+    outline: none;
+}
+
+.otp-timer {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 15px;
+}
+
+.resend-otp {
+    color: #0548af;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+    margin-left: 5px;
+}
+
+.resend-otp.disabled {
+    color: #ccc;
+    cursor: not-allowed;
+    text-decoration: none;
+}
+
 .success-icon {
     font-size: 50px;
     color: #4CAF50;
@@ -1995,6 +2041,10 @@ img {
 
 .project-tag.ongoing-tag {
     background: #FF9800;
+}
+
+.project-tag.upcoming-tag {
+    background: #2196F3;
 }
 
 .project-details {

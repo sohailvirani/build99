@@ -264,7 +264,10 @@ const ALL_SERVICES = [
     "Gated Communities", "Row Houses", "Townships", "Residential Developments", "Land Developments",
     "Café, Restaurant & Retail Building Construction", "Studio Apartment & Co-Living Building Construction", "Modular & Smart Home Construction",
     "Turnkey Interior Execution", "Modular Kitchen & Island Kitchen Installation", "False Ceiling & Designer Ceiling Execution",
-    "Carpentry & Custom Furniture Works", "Terrace Gardening & Balcony & Sit-Out Area Execution", "Facade & Cladding Execution"
+    "Carpentry & Custom Furniture Works", "Terrace Gardening & Balcony & Sit-Out Area Execution", "Facade & Cladding Execution",
+    "Gym Renovation, Remodeling & Interior Services", "Excavator / JCB on Rent",
+    "Road & Highway Infrastructure Projects", "Warehouse & Logistics Infrastructure", "Water Supply & Distribution Projects",
+    "Pipeline Infrastructure Projects", "Micro-Tunneling & Trenchless Works", "Pipe Jacking & HDD Works", "Rigid Pavement (PQ Concrete) Works"
 ];
 
 // Data: Surveying Services Form Configuration
@@ -976,6 +979,30 @@ const SURVEY_SERVICE_CONFIG = {
         { label: "Requirement?", name: "requirement", type: "select", options: ["Plotting", "Leveling", "Roads", "Full development"], required: true },
         { label: "Purpose?", name: "purpose", type: "select", options: ["Residential layout", "Farm plots", "Commercial"], required: true }
     ],
+    "Construction Progress Reporting & Photo Documentation": [
+        { label: "Project location?", name: "project_location", type: "text", required: true },
+        { label: "Type of project?", name: "project_type", type: "select", options: ["Residential", "Commercial", "Industrial", "Infrastructure"], required: true },
+        { label: "Frequency required?", name: "frequency", type: "select", options: ["Daily", "Weekly", "Fortnightly", "Monthly"], required: true },
+        { label: "Purpose?", name: "purpose", type: "select", options: ["Client reporting", "Documentation", "Records"], required: true }
+    ],
+    "Design Coordination Services (Arch/Structural/MEP)": [
+        { label: "Project location?", name: "project_location", type: "text", required: true },
+        { label: "Type of project?", name: "project_type", type: "select", options: ["Residential", "Commercial", "Industrial", "Infrastructure"], required: true },
+        { label: "Disciplines involved?", name: "disciplines", type: "select", options: ["Architecture", "Structural", "MEP", "All"], required: true },
+        { label: "Purpose?", name: "purpose", type: "select", options: ["Clash resolution", "Coordination", "Execution support"], required: true }
+    ],
+    "Value Engineering & Cost Optimization": [
+        { label: "Project location?", name: "project_location", type: "text", required: true },
+        { label: "Type of project?", name: "project_type", type: "select", options: ["Residential", "Commercial", "Industrial", "Infrastructure"], required: true },
+        { label: "Current stage?", name: "stage", type: "select", options: ["Design", "Execution"], required: true },
+        { label: "Purpose?", name: "purpose", type: "select", options: ["Cost reduction", "Efficiency improvement"], required: true }
+    ],
+    "Digital Project Controls & MIS Setup": [
+        { label: "Project location?", name: "project_location", type: "text", required: true },
+        { label: "Type of project?", name: "project_type", type: "select", options: ["Residential", "Commercial", "Industrial", "Infrastructure"], required: true },
+        { label: "Current systems in place?", name: "current_systems", type: "text", required: true },
+        { label: "Scope?", name: "scope", type: "select", options: ["MIS setup", "Reporting", "Dashboards"], required: true }
+    ],
     "Industrial Infrastructure": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
         { label: "Type of work?", name: "work_type", type: "select", options: ["Roads", "Drains", "Utilities"], required: true },
@@ -1001,10 +1028,10 @@ const SURVEY_SERVICE_CONFIG = {
         { label: "Quantity required?", name: "quantity", type: "text", required: true }
     ],
     "Road & Highway Infrastructure Projects": [
-        { label: "Where is the project located?", name: "project_location", type: "text", required: true },
-        { label: "Type of work?", name: "work_type", type: "select", options: ["BT Road", "CC Road", "Bridge", "Culvert"], required: true },
-        { label: "Project length or area?", name: "project_size", type: "text", required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["New construction", "Upgradation", "Repair"], required: true }
+        { label: "Project location?", name: "project_location", type: "text", required: true },
+        { label: "Length of road/highway?", name: "length", type: "text", required: true },
+        { label: "Type?", name: "type", type: "select", options: ["New", "Widening", "Rehabilitation"], required: true },
+        { label: "Scope?", name: "scope", type: "select", options: ["EPC", "Construction", "Consultancy"], required: true }
     ],
     "Railway Infrastructure Projects": [
         { label: "Where is the project located?", name: "project_location", type: "text", required: true },
@@ -1025,10 +1052,10 @@ const SURVEY_SERVICE_CONFIG = {
         { label: "Requirement?", name: "requirement", type: "select", options: ["New", "Upgrade", "Repair"], required: true }
     ],
     "Pipeline Infrastructure Projects": [
-        { label: "Where is the project located?", name: "project_location", type: "text", required: true },
-        { label: "Type of pipeline?", name: "pipeline_type", type: "select", options: ["MS", "DI", "HDPE"], required: true },
-        { label: "Length or diameter details?", name: "project_details", type: "text", required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["Laying", "Testing", "Commissioning"], required: true }
+        { label: "Project location?", name: "project_location", type: "text", required: true },
+        { label: "Pipeline length and diameter?", name: "length_diameter", type: "text", required: true },
+        { label: "Type?", name: "type", type: "select", options: ["Water", "Oil", "Gas", "Sewer"], required: true },
+        { label: "Scope?", name: "scope", type: "select", options: ["Laying", "Testing", "Commissioning"], required: true }
     ],
     "Power Infrastructure Projects": [
         { label: "Where is the project located?", name: "project_location", type: "text", required: true },
@@ -1043,10 +1070,10 @@ const SURVEY_SERVICE_CONFIG = {
         { label: "Requirement?", name: "requirement", type: "select", options: ["New", "Strengthening", "Repair"], required: true }
     ],
     "Warehouse & Logistics Infrastructure": [
-        { label: "Where is the project located?", name: "project_location", type: "text", required: true },
-        { label: "Type of work?", name: "work_type", type: "select", options: ["PEB", "Industrial flooring"], required: true },
-        { label: "Area size?", name: "area_size", type: "text", required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["New construction", "Expansion"], required: true }
+        { label: "Project location?", name: "project_location", type: "text", required: true },
+        { label: "Land area?", name: "land_area", type: "text", required: true },
+        { label: "Type?", name: "type", type: "select", options: ["Warehouse", "Logistics park"], required: true },
+        { label: "Requirements?", name: "requirements", type: "select", options: ["Storage", "Loading bays", "Utilities"], required: true }
     ],
     "Piling Execution Works": [
         { label: "Where is the project located?", name: "project_location", type: "text", required: true },
@@ -1173,6 +1200,42 @@ const SURVEY_SERVICE_CONFIG = {
         { label: "Type of building?", name: "building_type", type: "text", required: true },
         { label: "Area size?", name: "area_size", type: "text", required: true },
         { label: "Cladding type?", name: "cladding_type", type: "select", options: ["ACP", "Glass", "Stone", "HPL"], required: true }
+    ],
+    "Gym Renovation, Remodeling & Interior Services": [
+        { label: "Project location?", name: "project_location", type: "text", required: true },
+        { label: "Type of gym?", name: "gym_type", type: "select", options: ["Commercial", "Home gym"], required: true },
+        { label: "Area size?", name: "area_size", type: "text", required: true },
+        { label: "Scope?", name: "scope", type: "select", options: ["Renovation", "Interiors", "Equipment layout"], required: true }
+    ],
+    "Excavator / JCB on Rent": [
+        { label: "Site location?", name: "site_location", type: "text", required: true },
+        { label: "Duration required?", name: "duration", type: "text", required: true },
+        { label: "Type of work?", name: "work_type", type: "select", options: ["Excavation", "Leveling", "Trenching"], required: true },
+        { label: "Machine size or capacity?", name: "machine_size", type: "text", required: true }
+    ],
+    "Water Supply & Distribution Projects": [
+        { label: "Project location?", name: "project_location", type: "text", required: true },
+        { label: "Area coverage?", name: "area_coverage", type: "text", required: true },
+        { label: "Type of system?", name: "system_type", type: "select", options: ["Urban", "Rural"], required: true },
+        { label: "Scope?", name: "scope", type: "select", options: ["Design", "Installation", "Maintenance"], required: true }
+    ],
+    "Micro-Tunneling & Trenchless Works": [
+        { label: "Project location?", name: "project_location", type: "text", required: true },
+        { label: "Length and diameter?", name: "length_diameter", type: "text", required: true },
+        { label: "Soil conditions?", name: "soil_conditions", type: "text", required: true },
+        { label: "Purpose?", name: "purpose", type: "select", options: ["Utility installation", "Minimal surface disruption"], required: true }
+    ],
+    "Pipe Jacking & HDD Works": [
+        { label: "Project location?", name: "project_location", type: "text", required: true },
+        { label: "Length and diameter?", name: "length_diameter", type: "text", required: true },
+        { label: "Type?", name: "type", type: "select", options: ["Pipe jacking", "HDD"], required: true },
+        { label: "Purpose?", name: "purpose", type: "select", options: ["Underground crossings", "Utilities"], required: true }
+    ],
+    "Rigid Pavement (PQ Concrete) Works": [
+        { label: "Project location?", name: "project_location", type: "text", required: true },
+        { label: "Area or length?", name: "area_length", type: "text", required: true },
+        { label: "Thickness requirement?", name: "thickness", type: "text", required: true },
+        { label: "Purpose?", name: "purpose", type: "select", options: ["Road", "Industrial flooring"], required: true }
     ]
 };
 
@@ -1182,8 +1245,46 @@ function initModals() {
     const dynamicFieldsContainer = document.getElementById('dynamic-fields');
     let currentStep = 0;
     let steps = [];
+    let generatedOTP = '';
+    let otpTimerInterval = null;
 
     if (!modal) return;
+
+    // Helper function for OTP generation
+    function generateOTP() {
+        return Math.floor(1000 + Math.random() * 9000).toString();
+    }
+
+    function startOTPTimer() {
+        let timeLeft = 30;
+        const timerEl = document.getElementById('otp-timer-count');
+        const resendBtn = document.getElementById('resend-otp-btn');
+        
+        if (otpTimerInterval) clearInterval(otpTimerInterval);
+        
+        if (resendBtn) resendBtn.classList.add('disabled');
+        
+        otpTimerInterval = setInterval(() => {
+            timeLeft--;
+            if (timerEl) timerEl.innerText = timeLeft;
+            
+            if (timeLeft <= 0) {
+                clearInterval(otpTimerInterval);
+                if (resendBtn) {
+                    resendBtn.classList.remove('disabled');
+                    resendBtn.innerText = 'Resend OTP';
+                }
+            }
+        }, 1000);
+    }
+
+    function sendOTP(phone) {
+        generatedOTP = generateOTP();
+        // Simulation: Log the OTP to console and show an alert for easy testing
+        console.log(`[Build99 Simulation] Sending OTP ${generatedOTP} to ${phone}`);
+        alert(`For simulation purposes, your OTP is: ${generatedOTP}`);
+        startOTPTimer();
+    }
 
     // Use event delegation for modal triggers
     document.addEventListener('click', (e) => {
@@ -1196,6 +1297,7 @@ function initModals() {
         
         // Reset and Build Steps
         currentStep = 0;
+        if (otpTimerInterval) clearInterval(otpTimerInterval);
         buildFormSteps(service, config);
         showStep(0);
         
@@ -1215,7 +1317,7 @@ function initModals() {
         // 2. Requirement Step
         steps.push(createStep('Any specific requirement?', 'requirement', 'textarea', 'Describe your requirement in detail', false));
 
-        // 3. Contact Step (Combined Last Step)
+        // 3. Contact Step (Combined Step)
         steps.push({ 
             label: 'Contact Information', 
             type: 'contact_combined',
@@ -1224,6 +1326,13 @@ function initModals() {
                 { label: 'Mobile Number*', name: 'phone', type: 'tel', placeholder: 'Enter your mobile number', required: true },
                 { label: 'Email Address*', name: 'email', type: 'email', placeholder: 'Enter your email address', required: true }
             ]
+        });
+
+        // 4. OTP Verification Step
+        steps.push({
+            label: 'Verify Your Mobile Number',
+            type: 'otp_verification',
+            name: 'otp'
         });
 
         // Append all steps to container
@@ -1262,6 +1371,63 @@ function initModals() {
                     
                     stepDiv.appendChild(group);
                 });
+            } else if (step.type === 'otp_verification') {
+                // Special rendering for OTP step
+                const otpDesc = document.createElement('p');
+                otpDesc.style.textAlign = 'center';
+                otpDesc.style.marginBottom = '20px';
+                otpDesc.innerText = 'We have sent a 4-digit verification code to your mobile number.';
+                stepDiv.appendChild(otpDesc);
+
+                const otpContainer = document.createElement('div');
+                otpContainer.className = 'otp-input-container';
+                
+                for (let i = 0; i < 4; i++) {
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.className = 'otp-input';
+                    input.maxLength = 1;
+                    input.pattern = '[0-9]*';
+                    input.inputMode = 'numeric';
+                    input.name = `otp-${i}`;
+                    
+                    // Auto-focus next input
+                    input.oninput = (e) => {
+                        if (e.target.value.length === 1 && i < 3) {
+                            otpContainer.children[i + 1].focus();
+                        }
+                    };
+                    
+                    // Handle backspace
+                    input.onkeydown = (e) => {
+                        if (e.key === 'Backspace' && !e.target.value && i > 0) {
+                            otpContainer.children[i - 1].focus();
+                        }
+                    };
+                    
+                    otpContainer.appendChild(input);
+                }
+                stepDiv.appendChild(otpContainer);
+
+                const timerDiv = document.createElement('div');
+                timerDiv.className = 'otp-timer';
+                timerDiv.innerHTML = `Resend OTP in <span id="otp-timer-count">30</span>s <a id="resend-otp-btn" class="resend-otp disabled">Resend OTP</a>`;
+                
+                // Add event listener to resend button after creation
+                setTimeout(() => {
+                    const resendBtn = document.getElementById('resend-otp-btn');
+                    if (resendBtn) {
+                        resendBtn.onclick = (e) => {
+                            if (!resendBtn.classList.contains('disabled')) {
+                                const phoneInput = document.querySelector('input[name="phone"]');
+                                if (phoneInput) sendOTP(phoneInput.value);
+                            }
+                        };
+                    }
+                }, 100);
+                
+                stepDiv.appendChild(timerDiv);
+
             } else {
                 // Standard rendering for single-field steps
                 const group = document.createElement('div');
@@ -1385,6 +1551,13 @@ function initModals() {
 
     function nextStep() {
         if (validateStep(currentStep)) {
+            // Check if current step is Contact step (it's always the second to last step)
+            if (currentStep === steps.length - 2) {
+                const phoneInput = document.querySelector('input[name="phone"]');
+                if (phoneInput) {
+                    sendOTP(phoneInput.value);
+                }
+            }
             showStep(currentStep + 1);
         }
     }
@@ -1395,22 +1568,58 @@ function initModals() {
 
     function validateStep(index) {
         const stepEl = document.getElementById(`step-${index}`);
-        const inputs = stepEl.querySelectorAll('input[required], select[required], textarea[required]');
-        let isValid = true;
-
-        inputs.forEach(input => {
-            if (input.type === 'radio') {
-                const name = input.name;
-                const checked = stepEl.querySelector(`input[name="${name}"]:checked`);
-                if (!checked) isValid = false;
-            } else if (!input.value.trim()) {
-                isValid = false;
-            }
-        });
-
+        const currentStepConfig = steps[index];
         const errorMsg = stepEl.querySelector('.error-message');
+        let isValid = true;
+        let customError = '';
+
+        if (currentStepConfig.type === 'otp_verification') {
+            // Validate OTP
+            const inputs = stepEl.querySelectorAll('.otp-input');
+            let enteredOTP = '';
+            inputs.forEach(input => enteredOTP += input.value);
+            
+            if (enteredOTP.length !== 4) {
+                isValid = false;
+                customError = 'Please enter the 4-digit verification code.';
+            } else if (enteredOTP !== generatedOTP) {
+                isValid = false;
+                customError = 'Invalid verification code. Please try again.';
+            }
+        } else if (currentStepConfig.type === 'contact_combined') {
+            const inputs = stepEl.querySelectorAll('input[required]');
+            inputs.forEach(input => {
+                if (!input.value.trim()) {
+                    isValid = false;
+                }
+                // Basic validations
+                if (input.name === 'phone' && input.value.trim() && !/^[0-9]{10}$/.test(input.value.trim())) {
+                    isValid = false;
+                    customError = 'Please enter a valid 10-digit mobile number.';
+                }
+                if (input.name === 'email' && input.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim())) {
+                    isValid = false;
+                    customError = 'Please enter a valid email address.';
+                }
+            });
+        } else {
+            const inputs = stepEl.querySelectorAll('input[required], select[required], textarea[required]');
+            inputs.forEach(input => {
+                if (input.type === 'radio') {
+                    const name = input.name;
+                    const checked = stepEl.querySelector(`input[name="${name}"]:checked`);
+                    if (!checked) isValid = false;
+                } else if (!input.value.trim()) {
+                    isValid = false;
+                }
+            });
+        }
+
         if (!isValid) {
-            if (errorMsg) errorMsg.style.display = 'block';
+            if (errorMsg) {
+                errorMsg.innerText = customError || 'Please fill all required fields.';
+                errorMsg.style.display = 'block';
+            }
         } else {
             if (errorMsg) errorMsg.style.display = 'none';
         }
