@@ -2051,3 +2051,46 @@ img {
         grid-template-columns: 1fr;
     }
 }
+
+/* Custom Header Desktop styling requested */
+@media (min-width: 993px) {
+    .main-header {
+        background-color: #0747b1 !important;
+    }
+    
+    .main-header .logo a {
+        display: inline-flex;
+        background-color: #ffffff;
+        border-radius: 50%;
+        width: 80px;
+        height: 80px;
+        padding: 5px;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        text-decoration: none;
+    }
+    
+    .main-header .logo img {
+        max-height: 100%;
+        max-width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+    
+    /* Ensure other blocks like nav background and sociak icons align seamlessly with new header color */
+    .header-nav {
+        background-color: transparent !important;
+    }
+    .header-social-block {
+        background-color: transparent !important;
+    }
+    
+    /* Adjust text values that are on header to be readable on dark blue background */
+    .call-btn-header, .call-btn-header i {
+        color: #ffffff !important;
+    }
+    .call-btn-header:hover {
+        color: #ffc107 !important;
+    }
+}
