@@ -199,11 +199,21 @@ function getFormSubmitEndpoint() {
     return window.formSubmitEndpoint || 'https://formsubmit.co/ajax/info.build99@gmail.com';
 }
 
+function buildSubmissionId() {
+    return `${Date.now()}-${Math.random().toString(16).slice(2, 10)}`;
+}
+
 async function submitToEmail(formData) {
-    formData.append('_subject', 'Build99 Website Enquiry');
-    formData.append('_template', 'table');
-    formData.append('_captcha', 'false');
-    formData.append('page_url', window.location.href);
+    const formType = formData.get('form_type') || 'Website Enquiry';
+    const submissionId = buildSubmissionId();
+    const email = formData.get('email');
+
+    formData.set('submission_id', submissionId);
+    formData.set('_subject', `Build99 Enquiry - ${formType} - ${submissionId}`);
+    formData.set('_template', 'table');
+    formData.set('_captcha', 'false');
+    formData.set('page_url', window.location.href);
+    if (email) formData.set('_replyto', email);
 
     const response = await fetch(getFormSubmitEndpoint(), {
         method: 'POST',
