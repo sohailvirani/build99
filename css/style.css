@@ -185,25 +185,29 @@ img {
     transition: all 0.3s ease;
 }
 
-.header-nav ul li a:hover,
-.header-nav ul li a.active {
+.header-nav ul li a:hover {
     background-color: rgba(255, 255, 255, 0.1);
     color: #ffc107;
 }
 
+.header-nav ul li a.active {
+    background-color: transparent;
+    color: #ffc107;
+}
+
 .dropdown-menu li a.active {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: transparent;
     color: #ffc107;
     padding-left: 25px;
 }
 
 .mobile-nav ul li a.active {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: transparent;
     color: #ffc107;
 }
 
 .mobile-dropdown-menu li a.active {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: transparent;
     color: #ffc107;
     padding-left: 45px;
 }
@@ -1966,6 +1970,37 @@ img {
     margin-bottom: 40px;
 }
 
+.projects-category-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 35px;
+    flex-wrap: wrap;
+}
+
+.project-category-btn {
+    padding: 8px 16px;
+    background: #ffc107;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #111;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    text-transform: uppercase;
+}
+
+.project-category-btn:hover {
+    background: #e0a800;
+    transform: translateY(-1px);
+}
+
+.project-category-btn.active {
+    background: #111;
+    color: #ffc107;
+}
+
 .project-tab-btn {
     padding: 12px 25px;
     background: transparent;
@@ -1988,6 +2023,31 @@ img {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
+}
+
+.projects-completed-page .projects-page-grid {
+    justify-items: start;
+}
+
+.projects-completed-page .project-card {
+    width: 100%;
+    max-width: 280px;
+}
+
+.projects-completed-page .project-image {
+    height: 170px;
+}
+
+.projects-completed-page .project-details {
+    padding: 12px 14px;
+}
+
+.projects-completed-page .project-details h3 {
+    font-size: 0.95rem;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+    font-weight: 600;
 }
 
 .project-card {

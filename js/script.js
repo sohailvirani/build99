@@ -60,6 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize Service Carousel
     initServiceCarousel();
+
+    initProjectCategoryFilter();
 });
 
 function setActiveNavigation() {
@@ -127,6 +129,67 @@ function initServiceCarousel() {
             const clone = slide.cloneNode(true);
             track.appendChild(clone);
         });
+    });
+}
+
+function initProjectCategoryFilter() {
+    const sections = document.querySelectorAll('.projects-completed-page');
+    if (sections.length === 0) return;
+
+    const determineCategory = (title) => {
+        const t = (title || '').toLowerCase();
+        if (t.includes('cafe') || t.includes('dhaba') || t.includes('restaurant')) return 'cafe-restaurant';
+        if (t.includes('gym')) return 'gym';
+        if (t.includes('venture')) return 'venture-developments';
+        if (t.includes('interior')) return 'interiors';
+        if (t.includes('pmc')) return 'pmc-works';
+        if (
+            t.includes('culvert') ||
+            t.includes('bridge') ||
+            t.includes('road') ||
+            t.includes('highway') ||
+            t.includes('railway') ||
+            t.includes('pipeline') ||
+            t.includes('oht') ||
+            t.includes('esr') ||
+            t.includes('ugr')
+        ) return 'infra-works';
+        return 'buildings';
+    };
+
+    sections.forEach(section => {
+        const buttons = Array.from(section.querySelectorAll('.project-category-btn'));
+        const cards = Array.from(section.querySelectorAll('.project-card.completed'));
+
+        if (buttons.length === 0 || cards.length === 0) return;
+
+        cards.forEach(card => {
+            if (card.dataset && card.dataset.category) return;
+            const titleEl = card.querySelector('.project-details h3');
+            const title = titleEl ? titleEl.textContent : '';
+            card.dataset.category = determineCategory(title);
+        });
+
+        const applyFilter = (category) => {
+            cards.forEach(card => {
+                const cardCategory = card.dataset.category || 'buildings';
+                const shouldShow = category === 'all' ? true : cardCategory === category;
+                card.style.display = shouldShow ? '' : 'none';
+            });
+        };
+
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                buttons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const category = btn.getAttribute('data-category') || 'all';
+                applyFilter(category);
+            });
+        });
+
+        const initial = buttons.find(b => b.classList.contains('active')) || buttons[0];
+        const initialCategory = initial.getAttribute('data-category') || 'all';
+        applyFilter(initialCategory);
     });
 }
 
