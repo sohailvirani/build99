@@ -2160,6 +2160,10 @@ img {
     .projects-page-grid {
         grid-template-columns: 1fr;
     }
+
+    .projects-completed-page .projects-page-grid {
+        justify-items: center;
+    }
 }
 
 /* Custom Header Desktop styling requested */

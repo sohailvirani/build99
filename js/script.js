@@ -62,6 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initServiceCarousel();
 
     initProjectCategoryFilter();
+    initContactForm();
 });
 
 function setActiveNavigation() {
@@ -190,6 +191,59 @@ function initProjectCategoryFilter() {
         const initial = buttons.find(b => b.classList.contains('active')) || buttons[0];
         const initialCategory = initial.getAttribute('data-category') || 'all';
         applyFilter(initialCategory);
+    });
+}
+
+function getFormSubmitEndpoint() {
+    return window.formSubmitEndpoint || 'https://formsubmit.co/ajax/info.build99@gmail.com';
+}
+
+async function submitToEmail(formData) {
+    formData.append('_subject', 'Build99 Website Enquiry');
+    formData.append('_template', 'table');
+    formData.append('_captcha', 'false');
+    formData.append('page_url', window.location.href);
+
+    const response = await fetch(getFormSubmitEndpoint(), {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: formData
+    });
+
+    if (!response.ok) {
+        throw new Error('Submit failed');
+    }
+    return response.json().catch(() => ({}));
+}
+
+function initContactForm() {
+    const contactForm = document.getElementById('contact-form') || document.querySelector('.contact-form');
+    if (!contactForm) return;
+
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(contactForm);
+        formData.append('form_type', 'Contact');
+
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        if (submitBtn) submitBtn.disabled = true;
+
+        try {
+            await submitToEmail(formData);
+            contactForm.innerHTML = `
+                <div class="form-success-message">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h2>Thank You!</h2>
+                    <p>Message was sent successfully.</p>
+                </div>
+            `;
+        } catch (err) {
+            if (submitBtn) submitBtn.disabled = false;
+            alert('Unable to send message. Please try again.');
+        }
     });
 }
 
@@ -1699,28 +1753,45 @@ function initModals() {
     });
 
     if (requirementForm) {
-        requirementForm.addEventListener('submit', (e) => {
+        requirementForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
-            // Show Success Message instead of mailto/alert
-            dynamicFieldsContainer.innerHTML = `
-                <div class="form-success-message">
-                    <div class="success-icon">
-                        <i class="fas fa-check-circle"></i>
+
+            if (!validateStep(currentStep)) return;
+
+            const submitBtn = requirementForm.querySelector('button[type="submit"]');
+            if (submitBtn) submitBtn.disabled = true;
+
+            try {
+                const formData = new FormData(requirementForm);
+                formData.append('form_type', 'Requirement Modal');
+                await submitToEmail(formData);
+
+                dynamicFieldsContainer.innerHTML = `
+                    <div class="form-success-message">
+                        <div class="success-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h2>Thank You!</h2>
+                        <p>Message was sent successfully.</p>
+                        <button type="button" class="btn-submit-modal" onclick="document.getElementById('survey-modal').style.display='none'; document.body.style.overflow='auto';">Close</button>
                     </div>
-                    <h2>Thank You!</h2>
-                    <p>Your Form is submitted successfully.</p>
-                    <p>We will get back to you shortly.</p>
-                    <button type="button" class="btn-submit-modal" onclick="document.getElementById('survey-modal').style.display='none'; document.body.style.overflow='auto';">Close</button>
-                </div>
-            `;
-            
-            // Hide progress bar on success
-            const progressBar = document.querySelector('.progress-bar');
-            if (progressBar) progressBar.style.width = '100%';
-            
-            // Reset form
-            requirementForm.reset();
+                `;
+
+                const progressBar = document.querySelector('.progress-bar');
+                if (progressBar) progressBar.style.width = '100%';
+
+                requirementForm.reset();
+            } catch (err) {
+                if (submitBtn) submitBtn.disabled = false;
+                const stepEl = document.getElementById(`step-${currentStep}`);
+                const errorMsg = stepEl ? stepEl.querySelector('.error-message') : null;
+                if (errorMsg) {
+                    errorMsg.innerText = 'Unable to send message. Please try again.';
+                    errorMsg.style.display = 'block';
+                } else {
+                    alert('Unable to send message. Please try again.');
+                }
+            }
         });
     }
 }
