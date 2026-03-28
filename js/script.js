@@ -63,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initProjectCategoryFilter();
     initContactForm();
+    initHeroRequirementForm();
 });
 
 function setActiveNavigation() {
@@ -232,6 +233,37 @@ function initContactForm() {
         try {
             await submitToEmail(formData);
             contactForm.innerHTML = `
+                <div class="form-success-message">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h2>Thank You!</h2>
+                    <p>Message was sent successfully.</p>
+                </div>
+            `;
+        } catch (err) {
+            if (submitBtn) submitBtn.disabled = false;
+            alert('Unable to send message. Please try again.');
+        }
+    });
+}
+
+function initHeroRequirementForm() {
+    const form = document.getElementById('hero-requirement-form');
+    if (!form) return;
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const submitBtn = form.querySelector('button[type="submit"]');
+        if (submitBtn) submitBtn.disabled = true;
+
+        try {
+            const formData = new FormData(form);
+            formData.append('form_type', 'Home Hero Requirement');
+            await submitToEmail(formData);
+
+            form.innerHTML = `
                 <div class="form-success-message">
                     <div class="success-icon">
                         <i class="fas fa-check-circle"></i>
@@ -1362,46 +1394,8 @@ function initModals() {
     const dynamicFieldsContainer = document.getElementById('dynamic-fields');
     let currentStep = 0;
     let steps = [];
-    let generatedOTP = '';
-    let otpTimerInterval = null;
 
     if (!modal) return;
-
-    // Helper function for OTP generation
-    function generateOTP() {
-        return Math.floor(1000 + Math.random() * 9000).toString();
-    }
-
-    function startOTPTimer() {
-        let timeLeft = 30;
-        const timerEl = document.getElementById('otp-timer-count');
-        const resendBtn = document.getElementById('resend-otp-btn');
-        
-        if (otpTimerInterval) clearInterval(otpTimerInterval);
-        
-        if (resendBtn) resendBtn.classList.add('disabled');
-        
-        otpTimerInterval = setInterval(() => {
-            timeLeft--;
-            if (timerEl) timerEl.innerText = timeLeft;
-            
-            if (timeLeft <= 0) {
-                clearInterval(otpTimerInterval);
-                if (resendBtn) {
-                    resendBtn.classList.remove('disabled');
-                    resendBtn.innerText = 'Resend OTP';
-                }
-            }
-        }, 1000);
-    }
-
-    function sendOTP(phone) {
-        generatedOTP = generateOTP();
-        // Simulation: Log the OTP to console and show an alert for easy testing
-        console.log(`[Build99 Simulation] Sending OTP ${generatedOTP} to ${phone}`);
-        alert(`For simulation purposes, your OTP is: ${generatedOTP}`);
-        startOTPTimer();
-    }
 
     // Use event delegation for modal triggers
     document.addEventListener('click', (e) => {
@@ -1414,7 +1408,6 @@ function initModals() {
         
         // Reset and Build Steps
         currentStep = 0;
-        if (otpTimerInterval) clearInterval(otpTimerInterval);
         buildFormSteps(service, config);
         showStep(0);
         
@@ -1443,13 +1436,6 @@ function initModals() {
                 { label: 'Mobile Number*', name: 'phone', type: 'tel', placeholder: 'Enter your mobile number', required: true },
                 { label: 'Email Address*', name: 'email', type: 'email', placeholder: 'Enter your email address', required: true }
             ]
-        });
-
-        // 4. OTP Verification Step
-        steps.push({
-            label: 'Verify Your Mobile Number',
-            type: 'otp_verification',
-            name: 'otp'
         });
 
         // Append all steps to container
@@ -1488,63 +1474,6 @@ function initModals() {
                     
                     stepDiv.appendChild(group);
                 });
-            } else if (step.type === 'otp_verification') {
-                // Special rendering for OTP step
-                const otpDesc = document.createElement('p');
-                otpDesc.style.textAlign = 'center';
-                otpDesc.style.marginBottom = '20px';
-                otpDesc.innerText = 'We have sent a 4-digit verification code to your mobile number.';
-                stepDiv.appendChild(otpDesc);
-
-                const otpContainer = document.createElement('div');
-                otpContainer.className = 'otp-input-container';
-                
-                for (let i = 0; i < 4; i++) {
-                    const input = document.createElement('input');
-                    input.type = 'text';
-                    input.className = 'otp-input';
-                    input.maxLength = 1;
-                    input.pattern = '[0-9]*';
-                    input.inputMode = 'numeric';
-                    input.name = `otp-${i}`;
-                    
-                    // Auto-focus next input
-                    input.oninput = (e) => {
-                        if (e.target.value.length === 1 && i < 3) {
-                            otpContainer.children[i + 1].focus();
-                        }
-                    };
-                    
-                    // Handle backspace
-                    input.onkeydown = (e) => {
-                        if (e.key === 'Backspace' && !e.target.value && i > 0) {
-                            otpContainer.children[i - 1].focus();
-                        }
-                    };
-                    
-                    otpContainer.appendChild(input);
-                }
-                stepDiv.appendChild(otpContainer);
-
-                const timerDiv = document.createElement('div');
-                timerDiv.className = 'otp-timer';
-                timerDiv.innerHTML = `Resend OTP in <span id="otp-timer-count">30</span>s <a id="resend-otp-btn" class="resend-otp disabled">Resend OTP</a>`;
-                
-                // Add event listener to resend button after creation
-                setTimeout(() => {
-                    const resendBtn = document.getElementById('resend-otp-btn');
-                    if (resendBtn) {
-                        resendBtn.onclick = (e) => {
-                            if (!resendBtn.classList.contains('disabled')) {
-                                const phoneInput = document.querySelector('input[name="phone"]');
-                                if (phoneInput) sendOTP(phoneInput.value);
-                            }
-                        };
-                    }
-                }, 100);
-                
-                stepDiv.appendChild(timerDiv);
-
             } else {
                 // Standard rendering for single-field steps
                 const group = document.createElement('div');
@@ -1668,13 +1597,6 @@ function initModals() {
 
     function nextStep() {
         if (validateStep(currentStep)) {
-            // Check if current step is Contact step (it's always the second to last step)
-            if (currentStep === steps.length - 2) {
-                const phoneInput = document.querySelector('input[name="phone"]');
-                if (phoneInput) {
-                    sendOTP(phoneInput.value);
-                }
-            }
             showStep(currentStep + 1);
         }
     }
@@ -1690,20 +1612,7 @@ function initModals() {
         let isValid = true;
         let customError = '';
 
-        if (currentStepConfig.type === 'otp_verification') {
-            // Validate OTP
-            const inputs = stepEl.querySelectorAll('.otp-input');
-            let enteredOTP = '';
-            inputs.forEach(input => enteredOTP += input.value);
-            
-            if (enteredOTP.length !== 4) {
-                isValid = false;
-                customError = 'Please enter the 4-digit verification code.';
-            } else if (enteredOTP !== generatedOTP) {
-                isValid = false;
-                customError = 'Invalid verification code. Please try again.';
-            }
-        } else if (currentStepConfig.type === 'contact_combined') {
+        if (currentStepConfig.type === 'contact_combined') {
             const inputs = stepEl.querySelectorAll('input[required]');
             inputs.forEach(input => {
                 if (!input.value.trim()) {

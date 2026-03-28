@@ -31,10 +31,10 @@
             <div class="container">
                 <h1 class="hero-title">One Marketplace for All <br> Construction & Engineering Services</h1>
                 
-                <div class="hero-search-form">
+                <form class="hero-search-form" id="hero-requirement-form">
                     <div class="form-group search-service">
                         <i class="fas fa-search"></i>
-                        <select class="form-control">
+                        <select class="form-control" name="service" required>
                             <option value="" disabled selected>Select Service</option>
                             <option value="Anchor Bolt / Rebar Pull-Out Testing">Anchor Bolt / Rebar Pull-Out Testing</option>
                             <option value="Architectural Planning">Architectural Planning</option>
@@ -133,7 +133,7 @@
                     
                     <div class="form-group search-area">
                         <i class="fas fa-map-marker-alt"></i>
-                        <select class="form-control">
+                        <select class="form-control" name="area" required>
                             <option value="" disabled selected>Select Area</option>
                             <option value="hyderabad">Hyderabad</option>
                             <option value="vijayawada">Vijayawada</option>
@@ -144,11 +144,11 @@
                     </div>
                     
                     <div class="form-group search-requirement">
-                        <input type="text" class="form-control" placeholder="Project Requirement">
+                        <input type="text" class="form-control" name="requirement" placeholder="Project Requirement" required>
                     </div>
                     
-                    <button class="btn btn-primary submit-btn">Submit Requirement</button>
-                </div>
+                    <button type="submit" class="btn btn-primary submit-btn">Submit Requirement</button>
+                </form>
             </div>
         </div>
     </section>
