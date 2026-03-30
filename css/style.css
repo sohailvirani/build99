@@ -956,13 +956,16 @@ img {
 
 .service-card-small h3 {
     font-size: 1rem;
-    padding: 8px 4px;
+    padding: 8px 8px;
     color: #fff;
     background: rgba(0, 45, 98, 0.8); /* Semi-transparent blue merging with image */
     margin: 0;
-    white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-height: 1.2;
+    min-height: calc(1.2em * 3 + 16px);
     position: absolute;
     bottom: 0;
     left: 0;
