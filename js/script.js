@@ -911,117 +911,81 @@ const SURVEY_SERVICE_CONFIG = {
     ],
     "House Electrical Installation Works": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
-        { label: "Type of property?", name: "property_type", type: "select", options: ["House", "Apartment", "Villa"], required: true },
-        { label: "Scope of work?", name: "scope", type: "select", options: ["Wiring", "DB panel", "Lighting", "Full installation"], required: true },
-        { label: "Project stage?", name: "stage", type: "select", options: ["New", "Renovation"], required: true }
+        { label: "Type of electrical work?", name: "work_type", type: "select", options: ["Internal wiring & conduit laying", "Distribution Board installation & panel fixing", "Lighting fixtures, switches, & power point installation"], required: true }
     ],
     "House Plumbing Installation Works": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
-        { label: "Type of property?", name: "property_type", type: "select", options: ["House", "Apartment", "Villa"], required: true },
-        { label: "Scope of work?", name: "scope", type: "select", options: ["Water lines", "Piping", "Sanitary fittings"], required: true },
-        { label: "Project stage?", name: "stage", type: "select", options: ["New", "Renovation", "Repair"], required: true }
+        { label: "Type of plumbing work?", name: "work_type", type: "select", options: ["Water supply lines", "CPVC/PVC Piping", "sanitary fixture installation"], required: true }
     ],
     "Fire Safety Works": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
-        { label: "Type of building?", name: "building_type", type: "select", options: ["Residential", "Commercial", "Industrial"], required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["Extinguishers", "Sprinklers", "Hydrant", "Alarm system"], required: true },
-        { label: "Purpose?", name: "purpose", type: "select", options: ["Safety", "Compliance", "New installation"], required: true }
+        { label: "Requirement?", name: "requirement", type: "select", options: ["Fire Extinguisher installation", "Fire sprinkler, hydrant, alarm systems"], required: true }
     ],
     "Solar Power System Installation Works": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
-        { label: "Property type?", name: "property_type", type: "select", options: ["House", "Commercial", "Industrial"], required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["Panels", "Hybrid system", "Complete setup"], required: true },
-        { label: "Required capacity? (kW)", name: "capacity", type: "text", required: true }
+        { label: "Requirement?", name: "requirement", type: "select", options: ["Solar panel mounting structure", "Hybrid solar systems"], required: true },
+        { label: "Capacity required? (kW)", name: "capacity", type: "text", required: true }
     ],
     "HVAC Installation & Ducting Works": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
-        { label: "Building type?", name: "building_type", type: "select", options: ["Office", "Commercial", "Industrial"], required: true },
-        { label: "Scope of work?", name: "scope", type: "select", options: ["Ducting", "Ventilation", "VRV/VRF systems"], required: true },
-        { label: "Area size or number of floors?", name: "area_floors", type: "text", required: true }
+        { label: "Type of HVAC work?", name: "work_type", type: "select", options: ["GI Duct fabrication", "Exhaust & ventilation systems", "VRV/VRF Systems"], required: true }
     ],
     "Hydraulic Pushing Works": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
-        { label: "Type of work?", name: "work_type", type: "select", options: ["Pipe pushing", "Trenchless", "Bore pushing"], required: true },
-        { label: "Length or depth details?", name: "length_depth", type: "text", required: true },
-        { label: "Purpose?", name: "purpose", type: "select", options: ["Utility installation", "Road crossing"], required: true }
+        { label: "Type of pushing work?", name: "work_type", type: "select", options: ["Underground pipe pushing", "Trenches technology works", "Bore pushing"], required: true }
     ],
     "Toilet Cubicle Supply & Installation": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
-        { label: "Type required?", name: "cubicle_type", type: "select", options: ["PVC", "SS hardware cubicles"], required: true },
-        { label: "Number of units?", name: "units", type: "text", required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["Supply only", "Supply & installation"], required: true }
+        { label: "Type of cubicles?", name: "cubicle_type", type: "select", options: ["SS hardware installation", "PVC toilets cubicles"], required: true },
+        { label: "Number of units?", name: "units", type: "text", required: true }
     ],
     "Pest Control & Anti-Termite Treatment": [
         { label: "Where is your site located?", name: "site_location", type: "text", required: true },
-        { label: "Type of treatment?", name: "treatment_type", type: "select", options: ["Pre-construction", "Post", "Wood borer"], required: true },
-        { label: "Property type?", name: "property_type", type: "select", options: ["House", "Commercial", "Site"], required: true },
-        { label: "Area size?", name: "area_size", type: "text", required: true }
+        { label: "Type of treatment?", name: "treatment_type", type: "select", options: ["Pre-construction anti-Termite", "Post construction treatment", "Wood borer treatment"], required: true }
     ],
     "Project Management Consultancy (PMC) Services": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
-        { label: "Project type?", name: "project_type", type: "select", options: ["Residential", "Commercial", "Industrial", "Infra"], required: true },
-        { label: "Project stage?", name: "stage", type: "select", options: ["Planning", "Ongoing", "Near completion"], required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["Planning", "Budgeting", "Vendor management", "Full PMC"], required: true }
+        { label: "Requirement?", name: "requirement", type: "select", options: ["Planning & Scheduling", "Budgeting", "Vendor Management"], required: true }
     ],
     "Independent Construction Quality Inspection": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
-        { label: "Type of project?", name: "project_type", type: "select", options: ["Building", "Infra", "Industrial"], required: true },
-        { label: "Scope?", name: "scope", type: "select", options: ["Material testing", "Site audit", "Compliance check"], required: true },
-        { label: "Frequency?", name: "frequency", type: "select", options: ["One-time", "Periodic inspection"], required: true }
+        { label: "Scope?", name: "scope", type: "select", options: ["Material Testing", "Site Audits", "Compliance Verification"], required: true }
     ],
-    "Maintenance, AMC & Facility Management": [
+    "Maintenance & AMC and Facility management Works": [
         { label: "Where is your site located?", name: "site_location", type: "text", required: true },
-        { label: "Type of property?", name: "property_type", type: "select", options: ["Residential", "Commercial", "Industrial"], required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["Maintenance", "AMC", "Facility management"], required: true },
-        { label: "Scope or area size?", name: "scope_area", type: "text", required: true }
+        { label: "Requirement?", name: "requirement", type: "select", options: ["Preventive Maintenance", "Asset Management", "Facility Operations"], required: true }
     ],
     "Construction Progress Monitoring": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
-        { label: "Project type?", name: "project_type", type: "select", options: ["Building", "Infra", "Industrial"], required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["Site monitoring", "MIS reports", "Progress tracking"], required: true },
-        { label: "Frequency?", name: "frequency", type: "select", options: ["Weekly", "Monthly", "Custom"], required: true }
+        { label: "Requirement?", name: "requirement", type: "select", options: ["Site Monitoring", "MIS Reports", "Progress Tracking"], required: true }
     ],
     "Project Cost Audit & Cost Control": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
-        { label: "Project type?", name: "project_type", type: "select", options: ["Residential", "Commercial", "Industrial"], required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["Cost audit", "Budget review", "Cost control"], required: true },
-        { label: "Project stage?", name: "stage", type: "select", options: ["Planning", "Ongoing"], required: true }
+        { label: "Requirement?", name: "requirement", type: "select", options: ["Budget Review", "Cost Tracking", "Financial Monitoring"], required: true }
     ],
     "Pre-Construction Inception": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
-        { label: "Project type?", name: "project_type", type: "select", options: ["Building", "Infra", "Industrial"], required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["Feasibility", "Risk analysis", "Initial planning"], required: true },
-        { label: "Land or project size?", name: "size", type: "text", required: true }
+        { label: "Requirement?", name: "requirement", type: "select", options: ["Feasibility Study", "Risk Analysis"], required: true }
     ],
     "Government Approvals": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
-        { label: "Type of approval?", name: "approval_type", type: "select", options: ["Building", "Layout", "Industrial"], required: true },
-        { label: "Project type?", name: "project_type", type: "select", options: ["Residential", "Commercial", "Industrial"], required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["New approval", "Regularization", "Support"], required: true }
+        { label: "Type of approval?", name: "approval_type", type: "select", options: ["Building Permissions", "Layout Permissions", "Industrial Permissions"], required: true }
     ],
     "International Architectural & Engineering Drawing Services": [
         { label: "Project location (Country/City)?", name: "project_location", type: "text", required: true },
-        { label: "Type of drawings?", name: "drawing_type", type: "select", options: ["Architectural", "Structural", "MEP"], required: true },
-        { label: "Project type?", name: "project_type", type: "select", options: ["Residential", "Commercial", "Industrial"], required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["New drawings", "Revisions", "Outsourcing support"], required: true }
+        { label: "Type of drawings?", name: "drawing_type", type: "select", options: ["Architectural Drawings", "Structural Drawings", "MEP Drawings"], required: true }
     ],
     "International Estimation & BOQ Services": [
         { label: "Project location?", name: "project_location", type: "text", required: true },
-        { label: "Project type?", name: "project_type", type: "select", options: ["Residential", "Commercial", "Industrial"], required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["Estimation", "BOQ", "Both"], required: true },
-        { label: "Project stage?", name: "stage", type: "select", options: ["Planning", "Tender stage"], required: true }
+        { label: "Requirement?", name: "requirement", type: "select", options: ["Project Estimations", "BOQ Preparation"], required: true }
     ],
     "BIM Modelling & Coordination (LOD 300–500)": [
         { label: "Project location?", name: "project_location", type: "text", required: true },
-        { label: "Project type?", name: "project_type", type: "select", options: ["Building", "Infra", "Industrial"], required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["3D modelling", "Clash detection", "Shop drawings"], required: true },
-        { label: "LOD level required?", name: "lod_level", type: "select", options: ["300", "400", "500"], required: true }
+        { label: "Requirement?", name: "requirement", type: "select", options: ["3D Modelling", "Clash Detection", "Shop Drawings"], required: true }
     ],
     "Construction Scheduling & Planning (Primavera / MSP)": [
         { label: "Project location?", name: "project_location", type: "text", required: true },
-        { label: "Project type?", name: "project_type", type: "select", options: ["Building", "Infra", "Industrial"], required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["Scheduling", "Resource planning", "Delay analysis"], required: true },
-        { label: "Project stage?", name: "stage", type: "select", options: ["Planning", "Ongoing"], required: true }
+        { label: "Requirement?", name: "requirement", type: "select", options: ["Baseline Scheduling", "Resource Planning", "Delay Analysis"], required: true }
     ],
     "Roads & Pavements": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
@@ -1090,88 +1054,74 @@ const SURVEY_SERVICE_CONFIG = {
         { label: "Quantity required?", name: "quantity", type: "text", required: true }
     ],
     "Road & Highway Infrastructure Projects": [
-        { label: "Project location?", name: "project_location", type: "text", required: true },
-        { label: "Length of road/highway?", name: "length", type: "text", required: true },
-        { label: "Type?", name: "type", type: "select", options: ["New", "Widening", "Rehabilitation"], required: true },
-        { label: "Scope?", name: "scope", type: "select", options: ["EPC", "Construction", "Consultancy"], required: true }
+        { label: "Where is your project located?", name: "project_location", type: "text", required: true },
+        { label: "Type of road project?", name: "road_type", type: "select", options: ["BT Roads", "CC Roads", "Bridge & Culverts"], required: true },
+        { label: "Project length or area?", name: "project_size", type: "text", required: true }
     ],
     "Railway Infrastructure Projects": [
-        { label: "Where is the project located?", name: "project_location", type: "text", required: true },
-        { label: "Type of work?", name: "work_type", type: "select", options: ["Track", "Platform", "RUB", "ROB"], required: true },
-        { label: "Project length or scope?", name: "project_size", type: "text", required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["New", "Upgrade", "Maintenance"], required: true }
+        { label: "Where is your project located?", name: "project_location", type: "text", required: true },
+        { label: "Type of railway work?", name: "work_type", type: "select", options: ["Track Works", "Platforms Works", "RUB & ROB Works"], required: true },
+        { label: "Project scope or size?", name: "project_size", type: "text", required: true }
     ],
     "Water Supply Projects": [
-        { label: "Where is the project located?", name: "project_location", type: "text", required: true },
-        { label: "Type of work?", name: "work_type", type: "select", options: ["OHT", "Pump house", "Pipeline"], required: true },
-        { label: "Capacity or project size?", name: "project_size", type: "text", required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["New", "Expansion", "Rehabilitation"], required: true }
+        { label: "Where is your project located?", name: "project_location", type: "text", required: true },
+        { label: "Type of water project?", name: "project_type", type: "select", options: ["Over head tanks", "Pump Houses", "Pipeline Works"], required: true },
+        { label: "Capacity or size?", name: "capacity_size", type: "text", required: true }
     ],
     "Sewerage & Stormwater Projects": [
-        { label: "Where is the project located?", name: "project_location", type: "text", required: true },
-        { label: "Type of work?", name: "work_type", type: "select", options: ["Sewer line", "STP", "Drainage"], required: true },
-        { label: "Project length or capacity?", name: "project_size", type: "text", required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["New", "Upgrade", "Repair"], required: true }
+        { label: "Where is your project located?", name: "project_location", type: "text", required: true },
+        { label: "Type of work?", name: "work_type", type: "select", options: ["Sewer Lines", "STP"], required: true },
+        { label: "Project scope or capacity?", name: "project_size", type: "text", required: true }
     ],
     "Pipeline Infrastructure Projects": [
-        { label: "Project location?", name: "project_location", type: "text", required: true },
-        { label: "Pipeline length and diameter?", name: "length_diameter", type: "text", required: true },
-        { label: "Type?", name: "type", type: "select", options: ["Water", "Oil", "Gas", "Sewer"], required: true },
-        { label: "Scope?", name: "scope", type: "select", options: ["Laying", "Testing", "Commissioning"], required: true }
+        { label: "Where is your project located?", name: "project_location", type: "text", required: true },
+        { label: "Type of pipeline work?", name: "work_type", type: "select", options: ["MS / DI / HDPE Laying", "Testing & Commissioning"], required: true },
+        { label: "Length and diameter?", name: "length_diameter", type: "text", required: true }
     ],
     "Power Infrastructure Projects": [
-        { label: "Where is the project located?", name: "project_location", type: "text", required: true },
-        { label: "Type of work?", name: "work_type", type: "select", options: ["Substation", "Transmission", "UG cables"], required: true },
-        { label: "Capacity or voltage level?", name: "project_capacity", type: "text", required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["Installation", "Upgrade", "Maintenance"], required: true }
+        { label: "Where is your project located?", name: "project_location", type: "text", required: true },
+        { label: "Type of power project?", name: "project_type", type: "select", options: ["Substations", "Transmission Lines", "UG Cables"], required: true },
+        { label: "Capacity or voltage level?", name: "capacity_voltage", type: "text", required: true }
     ],
     "Marine Projects": [
-        { label: "Where is the project located?", name: "project_location", type: "text", required: true },
-        { label: "Type of work?", name: "work_type", type: "select", options: ["Shore protection", "Breakwater", "Jetty"], required: true },
-        { label: "Project scope or area?", name: "project_size", type: "text", required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["New", "Strengthening", "Repair"], required: true }
+        { label: "Where is your project located?", name: "project_location", type: "text", required: true },
+        { label: "Type of marine work?", name: "work_type", type: "select", options: ["Shore Protection", "Breakwaters", "Jetty Works"], required: true },
+        { label: "Project scope or area?", name: "project_size", type: "text", required: true }
     ],
     "Warehouse & Logistics Infrastructure": [
-        { label: "Project location?", name: "project_location", type: "text", required: true },
-        { label: "Land area?", name: "land_area", type: "text", required: true },
-        { label: "Type?", name: "type", type: "select", options: ["Warehouse", "Logistics park"], required: true },
-        { label: "Requirements?", name: "requirements", type: "select", options: ["Storage", "Loading bays", "Utilities"], required: true }
+        { label: "Where is your project located?", name: "project_location", type: "text", required: true },
+        { label: "Type of infrastructure?", name: "infra_type", type: "select", options: ["PEB Structures", "Industrial Flooring"], required: true },
+        { label: "Area size?", name: "area_size", type: "text", required: true }
     ],
     "Piling Execution Works": [
-        { label: "Where is the project located?", name: "project_location", type: "text", required: true },
-        { label: "Type of piling?", name: "piling_type", type: "select", options: ["Bored cast-in-situ", "Driven piles"], required: true },
-        { label: "Number or depth of piles?", name: "piling_details", type: "text", required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["Execution", "Testing"], required: true }
+        { label: "Where is your project located?", name: "project_location", type: "text", required: true },
+        { label: "Type of piling?", name: "piling_type", type: "select", options: ["Bored Cast-in-Situ Piles", "Driven Piles"], required: true },
+        { label: "Number or depth of piles?", name: "piling_details", type: "text", required: true }
     ],
     "Ground Improvement": [
-        { label: "Where is the project located?", name: "project_location", type: "text", required: true },
-        { label: "Type of method?", name: "improvement_method", type: "select", options: ["Vibro compaction", "Soil strengthening"], required: true },
-        { label: "Area or depth?", name: "improvement_size", type: "text", required: true },
-        { label: "Purpose?", name: "purpose", type: "select", options: ["Foundation", "Stabilization"], required: true }
+        { label: "Where is your project located?", name: "project_location", type: "text", required: true },
+        { label: "Type of method?", name: "improvement_method", type: "select", options: ["Vibro Compaction", "Soil Strengthening"], required: true },
+        { label: "Area or depth?", name: "improvement_size", type: "text", required: true }
     ],
     "Pre-Stressing & Post-Tensioning Works": [
-        { label: "Where is the project located?", name: "project_location", type: "text", required: true },
-        { label: "Type of work?", name: "work_type", type: "select", options: ["PT slabs", "Cable stressing", "Grouting"], required: true },
-        { label: "Project size or slab area?", name: "project_size", type: "text", required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["New", "Strengthening"], required: true }
+        { label: "Where is your project located?", name: "project_location", type: "text", required: true },
+        { label: "Type of work?", name: "work_type", type: "select", options: ["PT Slabs", "Cable Stressing", "Grouting"], required: true },
+        { label: "Project size or area?", name: "project_size", type: "text", required: true }
     ],
     "Bridge Bearings & Expansion Joints": [
-        { label: "Where is the project located?", name: "project_location", type: "text", required: true },
-        { label: "Type of work?", name: "work_type", type: "select", options: ["Bearing installation", "Joint replacement"], required: true },
-        { label: "Bridge type or span?", name: "bridge_details", type: "text", required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["Installation", "Replacement", "Repair"], required: true }
+        { label: "Where is your project located?", name: "project_location", type: "text", required: true },
+        { label: "Type of work?", name: "work_type", type: "select", options: ["Bearing Installation", "Joint Replacement"], required: true },
+        { label: "Requirement?", name: "requirement", type: "select", options: ["Installation", "Replacement", "Maintenance"], required: true }
     ],
     "Gabion Wall & RE Structures": [
-        { label: "Where is the project located?", name: "project_location", type: "text", required: true },
-        { label: "Type of structure?", name: "structure_type", type: "select", options: ["Gabion", "Retaining", "RE wall"], required: true },
-        { label: "Length or height?", name: "structure_size", type: "text", required: true },
-        { label: "Purpose?", name: "purpose", type: "select", options: ["Soil retention", "Protection"], required: true }
+        { label: "Where is your project located?", name: "project_location", type: "text", required: true },
+        { label: "Type of structure?", name: "structure_type", type: "select", options: ["Retaining Structures", "Reinforced Earth Walls"], required: true },
+        { label: "Length or height?", name: "structure_size", type: "text", required: true }
     ],
     "Anti-Corrosion & Protective Coatings": [
-        { label: "Where is the project located?", name: "project_location", type: "text", required: true },
-        { label: "Type of coating?", name: "coating_type", type: "select", options: ["Epoxy", "PU", "Protective"], required: true },
-        { label: "Surface area?", name: "surface_area", type: "text", required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["New coating", "Recoating", "Maintenance"], required: true }
+        { label: "Where is your project located?", name: "project_location", type: "text", required: true },
+        { label: "Type of coating?", name: "coating_type", type: "select", options: ["Epoxy Coatings", "PU Coatings", "Structural Protection"], required: true },
+        { label: "Surface area?", name: "surface_area", type: "text", required: true }
     ],
     "Open Plotting Venture Development": [
         { label: "Where is the project located?", name: "project_location", type: "text", required: true },
