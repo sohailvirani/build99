@@ -1,21 +1,9 @@
 @media (max-width: 992px) {
     /* Tablet & Mobile */
     
-    /* Header */
-    .desktop-menu { display: none; }
-    .header-social-block { display: none; } /* Hide social icons */
-    .header-actions { display: none; } /* Hide Call button if needed or keep it? Usually hide on mobile header and put in menu or separate bar. */
-    .mobile-menu-toggle { display: block; }
+    /* Header handled in style.css for consistency */
     
-    .main-header .container { 
-        /* Reset to simple flex for mobile: Logo -- Toggle */
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 0;
-    }
-    
-    .logo img { height: 40px; }
+    .logo img { height: 45px; }
     
     /* Hide top bar if it existed */
     .top-bar { display: none; }
@@ -115,30 +103,10 @@
 @media (max-width: 576px) {
     /* Mobile Only */
     
-    /* Header */
-    .main-header .container { 
-        grid-template-columns: 1fr 50px;
-        grid-template-areas: 
-            "logo toggle"
-            "search search";
-        gap: 15px;
-        align-items: center;
-    }
-    .logo { 
-        grid-area: logo;
-        text-align: left; 
-        width: 100%;
-        display: flex;
-        justify-content: flex-start;
-    }
-    .mobile-menu-toggle {
-        grid-area: toggle;
-        justify-self: end;
-    }
-    .header-search {
-        grid-area: search;
-        width: 100%;
-    }
+    /* Header layout handled in style.css */
+    
+    .logo img { height: 70px; }
+    
     .logo-tagline { display: none; }
     .header-search .search-form { grid-template-columns: 1fr 44px; }
     .nav-bar .container { grid-template-columns: 1fr auto auto; }

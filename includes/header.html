@@ -16,12 +16,18 @@
             <!-- Logo -->
             <div class="logo">
                 <a href="./">
-                    <img src="images/logo.png" alt="Build99 Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                    <img src="images/Build99_Logo.webp" alt="Build99 Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
                     <span style="display:none; color: #ffc107; font-weight: bold; font-size: 1.5rem;">Build99</span>
                 </a>
             </div>
 
-            <!-- Navigation Menu (Moved here) -->
+            <form class="header-search" id="header-search-form">
+                <input class="header-search-input" type="search" name="q" placeholder="Enter product / service to search" aria-label="Search">
+                <button class="header-search-btn" type="submit" aria-label="Search">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+
             <nav class="desktop-menu header-nav">
                 <ul>
                     <li><a href="./">Home</a></li>
@@ -53,20 +59,21 @@
                 </ul>
             </nav>
 
-            <!-- Social Icons Block -->
-            <div class="header-social-block">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
-                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-            </div>
+            <div class="header-right-group">
+                <div class="header-social-block">
+                    <a href="https://www.facebook.com/Build99constructionservices" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/build__99/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/@build99constructionservices" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.linkedin.com/company/build99constructioncompany/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://share.google/qhdm7JBEfsRDQwV9B" target="_blank" title="Location"><i class="fas fa-map-marker-alt"></i></a>
+                </div>
 
-            <!-- Header Actions (Call Only) -->
-            <div class="header-actions">
-                <a href="tel:+919004009992" class="call-btn-header">
-                    <i class="fas fa-phone-alt fa-flip-horizontal"></i>
-                    <span>Call Now</span>
-                </a>
+                <div class="header-actions">
+                    <a href="tel:+919004009992" class="call-btn-header">
+                        <i class="fas fa-phone-alt fa-flip-horizontal"></i>
+                        <span>Call Now</span>
+                    </a>
+                </div>
             </div>
             
             <!-- Mobile Menu Toggle -->

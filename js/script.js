@@ -47,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Set Active Navigation Link
         setActiveNavigation();
+        initHeaderSearch();
     }).catch(error => console.error('Error loading includes:', error));
 
     // Initialize Modals
@@ -192,6 +193,41 @@ function initProjectCategoryFilter() {
         const initial = buttons.find(b => b.classList.contains('active')) || buttons[0];
         const initialCategory = initial.getAttribute('data-category') || 'all';
         applyFilter(initialCategory);
+    });
+}
+
+function initHeaderSearch() {
+    const form = document.getElementById('header-search-form');
+    if (!form) return;
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const input = form.querySelector('input[name="q"]');
+        const rawQuery = input ? input.value : '';
+        const query = (rawQuery || '').trim();
+        if (!query) return;
+
+        const root = window.appRoot || '';
+        const q = query.toLowerCase();
+        const routes = [
+            { keywords: ['survey'], href: 'services/surveying/' },
+            { keywords: ['geotechnical', 'structural testing', 'material testing', 'ndt', 'testing'], href: 'services/geotechnical-&-structural-testing-services/' },
+            { keywords: ['architect', 'architectural', 'planning', 'design'], href: 'services/architectural-designs/' },
+            { keywords: ['building', 'construction', 'residential', 'commercial', 'industrial'], href: 'services/building-constructions/' },
+            { keywords: ['interior', 'finishing'], href: 'services/interior-and-finishing/' },
+            { keywords: ['cement', 'concrete', 'steel', 'tmt', 'sand', 'aggregate', 'materials'], href: 'services/construction-materials/' },
+            { keywords: ['renovation', 'demolition', 'specialized'], href: 'services/renovation-specialized-site-works/' },
+            { keywords: ['mep', 'electrical', 'plumbing', 'hvac', 'utility'], href: 'services/mep-&-utility-installation-works/' },
+            { keywords: ['pmc', 'project management', 'mis', 'reporting'], href: 'services/pmc-&-global-technical-services/' },
+            { keywords: ['infrastructure', 'road', 'bridge', 'pipeline', 'water', 'sewerage'], href: 'services/infrastructure-projects-&-specialized-engineering-works/' },
+            { keywords: ['rental', 'amenities', 'play equipment'], href: 'services/public-amenities-construction-rental-services/' }
+        ];
+
+        const match = routes.find(r => r.keywords.some(k => q.includes(k)));
+        const url = match ? (root + match.href) : (root + '#services');
+
+        sessionStorage.setItem('build99_search_query', query);
+        window.location.href = url;
     });
 }
 
@@ -437,7 +473,7 @@ const SURVEY_SERVICE_CONFIG = {
         { label: "Type of land?", name: "land_type", type: "select", options: ["Open plot", "Agricultural", "Mixed"], required: true },
         { label: "Do you need elevation & contour details?", name: "needs_details", type: "radio", options: ["Yes", "No"], required: true }
     ],
-    "Land Boundary Demarcation (Tippon Survey)": [
+    "Land Boundary Demarcation (Tipon Survey)": [
         { label: "Where is your site located?", name: "site_location", type: "text", required: true },
         { label: "What is the approximate site size?", name: "site_size", type: "text", required: true },
         { label: "Do you have land documents available?", name: "docs_available", type: "radio", options: ["Yes", "No"], required: true },
@@ -453,65 +489,57 @@ const SURVEY_SERVICE_CONFIG = {
         { label: "Where is your site located?", name: "site_location", type: "text", required: true },
         { label: "What is the approximate site size?", name: "site_size", type: "text", required: true },
         { label: "Current stage?", name: "stage", type: "select", options: ["Planning", "Ongoing", "Completed"], required: true },
-        { label: "Requirement?", name: "requirement_type", type: "select", options: ["Column marking", "Layout marking", "Excavation marking"], required: true }
+        { label: "Requirement?", name: "requirement_type", type: "select", options: ["Column marking", "Building Layout Marking", "Excavation marking"], required: true }
     ],
     "As-Built Survey": [
         { label: "Where is your site located?", name: "site_location", type: "text", required: true },
         { label: "What is the approximate site size?", name: "site_size", type: "text", required: true },
         { label: "Is construction completed?", name: "is_completed", type: "radio", options: ["Yes", "No"], required: true },
-        { label: "Purpose?", name: "purpose", type: "select", options: ["Approval", "Documentation", "Verification"], required: true }
+        { label: "Purpose?", name: "purpose", type: "select", options: ["Building As-Built Survey", "Industrial As-Built Survey"], required: true }
     ],
     "Drone Survey & Aerial Mapping": [
         { label: "Where is your site located?", name: "site_location", type: "text", required: true },
         { label: "What is the approximate site size?", name: "site_size", type: "text", required: true },
         { label: "Purpose?", name: "purpose", type: "select", options: ["Mapping", "Inspection", "Marketing"], required: true },
-        { label: "Output required?", name: "output", type: "select", options: ["Photos", "Video", "Both", "Orthomosaic"], required: true }
+        { label: "Output required?", name: "output", type: "select", options: ["Aerial Photography Survey", "Drone Ortho video survey"], required: true }
     ],
     "GIS Mapping & Spatial Data Analysis": [
         { label: "Where is your site located?", name: "site_location", type: "text", required: true },
         { label: "What is the approximate site size?", name: "site_size", type: "text", required: true },
-        { label: "Do you need geo-referencing?", name: "needs_geo", type: "radio", options: ["Yes", "No"], required: true },
+        { label: "Requirement?", name: "requirement", type: "select", options: ["Geo Referencing", "Digitization of Site Features", "Cadastral mapping"], required: true },
         { label: "Do you have existing data/maps?", name: "has_data", type: "radio", options: ["Yes", "No"], required: true }
     ],
     "Utility Mapping & Underground Services Survey (GPR)": [
         { label: "Where is your site located?", name: "site_location", type: "text", required: true },
         { label: "What is the approximate site size?", name: "site_size", type: "text", required: true },
-        { label: "Known utilities?", name: "utilities", type: "select", options: ["Pipelines", "Cables", "Not sure"], required: true },
+        { label: "Known utilities?", name: "utilities", type: "select", options: ["Ground Penetrating radar survey", "Pipelines Mapping", "Cable Mapping"], required: true },
         { label: "Purpose?", name: "purpose", type: "select", options: ["Detection", "Safety", "Planning"], required: true }
     ],
     "DPR Survey & Feasibility Studies": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
         { label: "What is the approximate project length/area?", name: "project_size", type: "text", required: true },
-        { label: "Project type?", name: "project_type", type: "select", options: ["Road", "Railway", "Pipeline", "Other"], required: true },
+        { label: "Project type?", name: "project_type", type: "select", options: ["Railway DPR", "Pipeline DPR", "Road DPR"], required: true },
         { label: "Requirement?", name: "requirement_scope", type: "select", options: ["Full DPR", "Feasibility only"], required: true }
     ],
-    "Road Alignment & Layout Planning Survey": [
+    "Layout Planning Survey": [
         { label: "Where is your site located?", name: "site_location", type: "text", required: true },
         { label: "What is the approximate site size?", name: "site_size", type: "text", required: true },
-        { label: "Approval authority?", name: "authority", type: "select", options: ["HMDA", "DTCP", "Other"], required: true },
-        { label: "Layout type?", name: "layout_type", type: "select", options: ["Residential", "Farm", "Commercial"], required: true }
+        { label: "Layout type?", name: "layout_type", type: "select", options: ["HMDA layout Planning", "DTCP layout Planning", "Farm land layout Planning"], required: true }
     ],
-    "Hydrographic & Water Body Survey": [
+    "Hydrographic Survey": [
         { label: "Where is the water body located?", name: "water_location", type: "text", required: true },
         { label: "What is the approximate survey area?", name: "survey_area", type: "text", required: true },
-        { label: "Water body type?", name: "water_type", type: "select", options: ["Pond", "River", "Lake", "Sea"], required: true },
-        { label: "Purpose?", name: "purpose", type: "select", options: ["Depth study", "Planning"], required: true }
+        { label: "Requirement?", name: "requirement", type: "select", options: ["Ponds Bathymetric survey", "River and Lake Bathymetric survey", "Sea-Bathymetric Survey"], required: true }
     ],
-    "3D Laser Scanning & LiDAR Survey": [
+    "LiDAR Survey": [
         { label: "Where is your site located?", name: "site_location", type: "text", required: true },
         { label: "What is the approximate site size?", name: "site_size", type: "text", required: true },
-        { label: "Area type?", name: "area_type", type: "select", options: ["Open land", "Urban", "Forest"], required: true },
-        { label: "Requirement?", name: "requirement_detail", type: "select", options: ["3D mapping", "High precision"], required: true }
-    ],
-    "Pre-Construction Site Survey Package": [
-        { label: "Where is your site located?", name: "site_location", type: "text", required: true },
-        { label: "What is the approximate site size?", name: "site_size", type: "text", required: true },
-        { label: "Project type?", name: "project_type", type: "select", options: ["Residential", "Commercial", "Industrial", "Infrastructure"], required: true }
+        { label: "Requirement?", name: "requirement_detail", type: "select", options: ["Open Land lidar"], required: true }
     ],
     "Soil Investigation": [
         { label: "Where is your site located?", name: "site_location", type: "text", required: true },
         { label: "What is the approximate site size?", name: "site_size", type: "text", required: true },
-        { label: "Type of investigation required?", name: "investigation_type", type: "select", options: ["Borehole", "Auger", "Trial pit"], required: true },
+        { label: "Type of investigation required?", name: "investigation_type", type: "select", options: ["Borehole Drilling", "Auger boring test", "Trail pit testing"], required: true },
         { label: "Purpose?", name: "purpose", type: "select", options: ["Construction", "Foundation design", "Soil study"], required: true }
     ],
     "Plate Load Testing": [
@@ -523,344 +551,219 @@ const SURVEY_SERVICE_CONFIG = {
     "Pile Load Testing (Static)": [
         { label: "Where is your site located?", name: "site_location", type: "text", required: true },
         { label: "Number of piles to be tested?", name: "pile_count", type: "text", required: true },
-        { label: "Type of test?", name: "test_type", type: "select", options: ["Compression", "Pull-out", "Lateral"], required: true },
+        { label: "Type of test?", name: "test_type", type: "select", options: ["Compression Load test", "Pull out Load test", "Lateral Load test"], required: true },
         { label: "Required load capacity?", name: "load_capacity", type: "text", required: true }
-    ],
-    "Pile Integrity Testing (PIT)": [
-        { label: "Site location?", name: "site_location", type: "text", required: true },
-        { label: "Number of piles to be tested?", name: "pile_count", type: "text", required: true },
-        { label: "Pile type and diameter?", name: "pile_type_diameter", type: "text", required: true },
-        { label: "Purpose?", name: "purpose", type: "select", options: ["Defect detection", "Quality check"], required: true }
-    ],
-    "Dynamic Pile Load Testing": [
-        { label: "Project location?", name: "project_location", type: "text", required: true },
-        { label: "Type of pile?", name: "pile_type", type: "select", options: ["Bored", "Driven"], required: true },
-        { label: "Required load capacity?", name: "load_capacity", type: "text", required: true },
-        { label: "Purpose?", name: "purpose", type: "select", options: ["Design validation", "Load carrying capacity"], required: true }
-    ],
-    "Groundwater Investigation": [
-        { label: "Location of site?", name: "site_location", type: "text", required: true },
-        { label: "Area size?", name: "area_size", type: "text", required: true },
-        { label: "Depth of study required?", name: "study_depth", type: "text", required: true },
-        { label: "Purpose?", name: "purpose", type: "select", options: ["Water availability", "Borewell planning"], required: true }
-    ],
-    "Pipeline Route Investigation": [
-        { label: "Route location and length?", name: "route_location_length", type: "text", required: true },
-        { label: "Soil conditions?", name: "soil_conditions", type: "text", required: true },
-        { label: "Depth of trench?", name: "trench_depth", type: "text", required: true },
-        { label: "Purpose?", name: "purpose", type: "select", options: ["Pipeline design", "Stability analysis"], required: true }
-    ],
-    "Pavement Subgrade Investigation": [
-        { label: "Project location?", name: "project_location", type: "text", required: true },
-        { label: "Road type?", name: "road_type", type: "select", options: ["Highway", "Internal road"], required: true },
-        { label: "Soil condition?", name: "soil_condition", type: "text", required: true },
-        { label: "Purpose?", name: "purpose", type: "select", options: ["Pavement design", "Subgrade strength"], required: true }
-    ],
-    "Soil Liquefaction Analysis": [
-        { label: "Site location?", name: "site_location", type: "text", required: true },
-        { label: "Seismic zone?", name: "seismic_zone", type: "text", required: true },
-        { label: "Soil type and depth?", name: "soil_type_depth", type: "text", required: true },
-        { label: "Purpose?", name: "purpose", type: "select", options: ["Earthquake risk assessment", "Foundation safety"], required: true }
     ],
     "Construction Materials Testing": [
         { label: "Where is your site located?", name: "site_location", type: "text", required: true },
-        { label: "Type of material?", name: "material_type", type: "select", options: ["Cement", "Steel", "Concrete"], required: true },
+        { label: "Type of material?", name: "material_type", type: "select", options: ["Cement Testing", "Steel Testing", "Concrete Cub Testing"], required: true },
         { label: "Type of test required?", name: "test_type", type: "text", required: true },
         { label: "Purpose?", name: "purpose", type: "select", options: ["Quality check", "Compliance", "Certification"], required: true }
     ],
     "Soil Resistivity Testing (Earthing)": [
         { label: "Where is your site located?", name: "site_location", type: "text", required: true },
-        { label: "Project type?", name: "project_type", type: "select", options: ["Solar", "Substation", "Telecom", "Other"], required: true },
+        { label: "Project type?", name: "project_type", type: "select", options: ["Solar Projects", "Sub Stations Projects", "Telecom Structures"], required: true },
         { label: "Area size or number of test points?", name: "test_points", type: "text", required: true },
         { label: "Purpose?", name: "purpose", type: "select", options: ["Earthing design", "Safety compliance"], required: true }
     ],
     "Non-Destructive Testing (NDT)": [
         { label: "Where is your site located?", name: "site_location", type: "text", required: true },
         { label: "Structure type?", name: "structure_type", type: "select", options: ["Building", "Bridge", "Industrial"], required: true },
-        { label: "Type of test?", name: "test_type", type: "select", options: ["Rebound Hammer", "UPV", "Half Cell"], required: true },
+        { label: "Type of test?", name: "test_type", type: "select", options: ["Rebound Hammer Test", "UPV Test", "Half Cell potential Test"], required: true },
         { label: "Purpose?", name: "purpose", type: "select", options: ["Strength check", "Condition assessment"], required: true }
     ],
     "Structural Audit & Retrofitting": [
         { label: "Where is your site located?", name: "site_location", type: "text", required: true },
         { label: "Type of structure?", name: "structure_type", type: "select", options: ["Residential", "Commercial", "Industrial"], required: true },
-        { label: "Issue observed?", name: "issue", type: "select", options: ["Cracks", "Damage", "Ageing"], required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["Audit", "Analysis", "Retrofitting solution"], required: true }
+        { label: "Requirement?", name: "requirement", type: "select", options: ["Structural Condition Assessment", "Crack mapping analysis", "Retrofitting design proposal"], required: true }
     ],
     "Anchor Bolt / Rebar Pull-Out Testing": [
         { label: "Where is your site located?", name: "site_location", type: "text", required: true },
         { label: "Type of element?", name: "element_type", type: "select", options: ["Anchor bolt", "Rebar"], required: true },
-        { label: "Number of test points?", name: "test_points", type: "text", required: true },
-        { label: "Required test?", name: "test_type", type: "select", options: ["Pull-out", "Proof load"], required: true }
+        { label: "Required test?", name: "test_type", type: "select", options: ["On-site pull out load test", "Proof load testing"], required: true }
     ],
     "Core Cutting": [
         { label: "Where is your site located?", name: "site_location", type: "text", required: true },
-        { label: "Material type?", name: "material_type", type: "select", options: ["RCC", "Asphalt"], required: true },
+        { label: "Material type?", name: "material_type", type: "select", options: ["RCC core cutting", "Asphalt Core Cutting"], required: true },
         { label: "Number of cores required?", name: "core_count", type: "text", required: true },
         { label: "Purpose?", name: "purpose", type: "select", options: ["Testing", "Analysis", "Quality check"], required: true }
     ],
     "Bridge Load Testing": [
         { label: "Where is the structure located?", name: "structure_location", type: "text", required: true },
-        { label: "Structure type?", name: "structure_type", type: "select", options: ["Bridge", "Flyover", "Culvert"], required: true },
-        { label: "Span or size details?", name: "span_details", type: "text", required: true },
+        { label: "Structure type?", name: "structure_type", type: "select", options: ["Bridge Testing", "Flyovers Testing", "Culvert Testing"], required: true },
         { label: "Purpose?", name: "purpose", type: "select", options: ["Load capacity", "Safety verification"], required: true }
     ],
     "Concrete Mix Design": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
-        { label: "Type of mix?", name: "mix_type", type: "select", options: ["Concrete", "Asphalt"], required: true },
+        { label: "Type of mix?", name: "mix_type", type: "select", options: ["Concrete mix design", "Asphalt mix design"], required: true },
         { label: "Grade or specification required?", name: "specification", type: "text", required: true },
         { label: "Purpose?", name: "purpose", type: "select", options: ["Project use", "Approval", "Optimization"], required: true }
     ],
     "Geological Investigation": [
         { label: "Where is your site located?", name: "site_location", type: "text", required: true },
-        { label: "Site type?", name: "site_type", type: "select", options: ["Hill", "Plain", "Coastal"], required: true },
-        { label: "Required study?", name: "study_type", type: "select", options: ["Mapping", "Slope", "Seismic"], required: true },
+        { label: "Required study?", name: "study_type", type: "select", options: ["Geological mapping", "Slope stability assessment", "Seismic hazard evaluation"], required: true },
         { label: "Purpose?", name: "purpose", type: "select", options: ["Project planning", "Risk assessment"], required: true }
     ],
     "Rock Investigation": [
         { label: "Where is your site located?", name: "site_location", type: "text", required: true },
-        { label: "Type of rock/site condition?", name: "rock_type", type: "text", required: true },
-        { label: "Required test?", name: "test_type", type: "select", options: ["Core drilling", "RQD", "UCS"], required: true },
+        { label: "Required test?", name: "test_type", type: "select", options: ["Core Drilling in rock", "Rock quality Designation", "Unconfined Compressive strength test"], required: true },
         { label: "Purpose?", name: "purpose", type: "select", options: ["Foundation", "Stability analysis"], required: true }
     ],
     "Offshore Geotechnical Investigation": [
         { label: "Project location (offshore area details)?", name: "offshore_location", type: "text", required: true },
-        { label: "Water depth or project extent?", name: "depth_extent", type: "text", required: true },
-        { label: "Required service?", name: "service_type", type: "select", options: ["Borehole", "Sampling", "CPT"], required: true },
+        { label: "Required service?", name: "service_type", type: "select", options: ["Offshore borehole Drilling", "Seabed Sampling", "CPT (Cone penetration test)"], required: true },
         { label: "Purpose?", name: "purpose", type: "select", options: ["Foundation", "Marine construction"], required: true }
     ],
-    "Architectural Planning & Building Design": [
+    "Architectural Planning": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
         { label: "What is the plot size?", name: "plot_size", type: "text", required: true },
-        { label: "Type of project?", name: "project_type", type: "select", options: ["Residential", "Commercial", "Industrial"], required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["New design", "Modification", "Approval drawings"], required: true }
-    ],
-    "Blue Prints (Building Approval & Submission Drawings)": [
-        { label: "Project location?", name: "project_location", type: "text", required: true },
-        { label: "Plot size and ownership details?", name: "plot_size_ownership", type: "text", required: true },
-        { label: "Authority for approval?", name: "approval_authority", type: "select", options: ["GHMC", "DTCP", "Local body"], required: true },
-        { label: "Purpose?", name: "purpose", type: "select", options: ["New approval", "Revision", "Regularization"], required: true }
-    ],
-    "Site Layout Design": [
-        { label: "Site location?", name: "site_location", type: "text", required: true },
-        { label: "Total land area?", name: "land_area", type: "text", required: true },
-        { label: "Type of development?", name: "development_type", type: "select", options: ["Residential layout", "Commercial", "Industrial"], required: true },
-        { label: "Requirements?", name: "requirements", type: "select", options: ["Roads", "Open spaces", "Amenities"], required: true }
-    ],
-    "RCC Detailing & Bar Bending Schedule (BBS)": [
-        { label: "Project location?", name: "project_location", type: "text", required: true },
-        { label: "Type of structure?", name: "structure_type", type: "text", required: true },
-        { label: "Structural drawings available?", name: "drawings_available", type: "radio", options: ["Yes", "No"], required: true },
-        { label: "Purpose?", name: "purpose", type: "select", options: ["Execution", "Quantity estimation"], required: true }
-    ],
-    "Building Elevation & Façade Design": [
-        { label: "Project location?", name: "project_location", type: "text", required: true },
-        { label: "Type of building?", name: "building_type", type: "text", required: true },
-        { label: "Preferred style?", name: "style", type: "select", options: ["Modern", "Traditional", "Contemporary"], required: true },
-        { label: "Purpose?", name: "purpose", type: "select", options: ["Aesthetic design", "Branding"], required: true }
-    ],
-    "3D Visualization & Walkthrough Animations": [
-        { label: "Project location?", name: "project_location", type: "text", required: true },
-        { label: "Type of project?", name: "project_type", type: "text", required: true },
-        { label: "Drawings available?", name: "drawings_available", type: "select", options: ["2D", "CAD", "Sketch"], required: true },
-        { label: "Purpose?", name: "purpose", type: "select", options: ["Presentation", "Marketing", "Client approval"], required: true }
-    ],
-    "MEP Design & Coordination": [
-        { label: "Project location?", name: "project_location", type: "text", required: true },
-        { label: "Type of building?", name: "building_type", type: "text", required: true },
-        { label: "Scope required?", name: "scope", type: "select", options: ["Electrical", "Plumbing", "Fire", "HVAC"], required: true },
-        { label: "Purpose?", name: "purpose", type: "select", options: ["Design", "Coordination", "Execution support"], required: true }
-    ],
-    "SLD (Water, Sewerage, Fire, Electrical)": [
-        { label: "Project location?", name: "project_location", type: "text", required: true },
-        { label: "Type of building?", name: "building_type", type: "text", required: true },
-        { label: "Services required?", name: "services", type: "select", options: ["Water", "Drainage", "Fire", "Electrical"], required: true },
-        { label: "Purpose?", name: "purpose", type: "select", options: ["Approvals", "Execution", "Documentation"], required: true }
-    ],
-    "Interior Design & Space Planning": [
-        { label: "Project location?", name: "project_location", type: "text", required: true },
-        { label: "Type of space?", name: "space_type", type: "select", options: ["Home", "Office", "Retail"], required: true },
-        { label: "Area size?", name: "area_size", type: "text", required: true },
-        { label: "Requirements?", name: "requirements", type: "select", options: ["Theme", "Furniture", "Functionality"], required: true }
+        { label: "Type of project?", name: "project_type", type: "select", options: ["Residential Building Designs", "Commercial Building Designs", "Industrial Designs"], required: true }
     ],
     "Project Estimation & BOQ": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
         { label: "Project type?", name: "project_type", type: "select", options: ["Residential", "Commercial", "Industrial"], required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["Cost estimation", "BBS", "BOQ"], required: true },
-        { label: "Project stage?", name: "stage", type: "select", options: ["Planning", "Ongoing"], required: true }
+        { label: "Requirement?", name: "requirement", type: "select", options: ["Estimation Costings", "Bar Bending Schedule (BBS)", "Boq preparation"], required: true }
+    ],
+    "MEP Design": [
+        { label: "Project location?", name: "project_location", type: "text", required: true },
+        { label: "Type of building?", name: "building_type", type: "text", required: true },
+        { label: "Requirement?", name: "requirement", type: "select", options: ["Electrical layout planning", "Plumbing layout design", "MEP Coordination drawings"], required: true }
     ],
     "As-Built Drawings": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
-        { label: "Type of building?", name: "building_type", type: "select", options: ["Residential", "Commercial", "Industrial"], required: true },
-        { label: "Is construction completed?", name: "is_completed", type: "radio", options: ["Yes", "No"], required: true },
+        { label: "Type of building?", name: "building_type", type: "select", options: ["Building As-built survey", "Industrial As-built survey", "Commercial As-built Survey"], required: true },
         { label: "Purpose?", name: "purpose", type: "select", options: ["Documentation", "Approval", "Records"], required: true }
     ],
     "HVAC Design": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
         { label: "Building type?", name: "building_type", type: "select", options: ["Office", "Industrial", "Commercial"], required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["Duct design", "Ventilation", "Full HVAC"], required: true },
-        { label: "Area size or floor details?", name: "size_details", type: "text", required: true }
+        { label: "Requirement?", name: "requirement", type: "select", options: ["Duct layout Design", "Ventilation system Designs"], required: true }
+    ],
+    "SLD (Water, Sewerage, Fire, Electrical)": [
+        { label: "Project location?", name: "project_location", type: "text", required: true },
+        { label: "Type of building?", name: "building_type", type: "text", required: true },
+        { label: "Services required?", name: "services", type: "select", options: ["Electrical SLD", "Water supply schematic & Drainage SLD", "Fire System Schematic"], required: true }
     ],
     "Landscape Planning & Design": [
         { label: "Where is your site located?", name: "site_location", type: "text", required: true },
         { label: "Area size?", name: "area_size", type: "text", required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["Softscape", "Hardscape", "Irrigation"], required: true },
-        { label: "Purpose?", name: "purpose", type: "select", options: ["Villa", "Layout", "Commercial space"], required: true }
+        { label: "Requirement?", name: "requirement", type: "select", options: ["Softscape Planning", "Hardscape Design", "Irrigation Layout"], required: true }
     ],
-    "Structural Designs (RCC & Steel)": [
+    "Structural Designs": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
-        { label: "Project type?", name: "project_type", type: "select", options: ["Building", "Infrastructure", "Industrial"], required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["New design", "Review", "Optimization"], required: true },
-        { label: "Number of floors or scale of project?", name: "scale", type: "text", required: true }
+        { label: "Project type?", name: "project_type", type: "select", options: ["Building Structural Designs", "Infra Project Designs", "Industrial Structural Designs"], required: true },
+        { label: "Requirement?", name: "requirement", type: "select", options: ["New design", "Review", "Optimization"], required: true }
+    ],
+    "Interior Design": [
+        { label: "Where is your project located?", name: "project_location", type: "text", required: true },
+        { label: "Type of space?", name: "space_type", type: "select", options: ["Home", "Office", "Retail"], required: true },
+        { label: "Requirement?", name: "requirement", type: "select", options: ["3D Interior Designs", "Façade Designs", "Walkthrough Animations"], required: true }
     ],
     "Working / GFC Drawings": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
-        { label: "Project type?", name: "project_type", type: "select", options: ["Residential", "Commercial", "Industrial"], required: true },
-        { label: "Stage?", name: "stage", type: "select", options: ["Planning", "Execution"], required: true },
+        { label: "Project type?", name: "project_type", type: "select", options: ["Residential Building Designs", "Commercial Building Designs", "Industrial Designs"], required: true },
         { label: "Requirement?", name: "requirement", type: "select", options: ["Detailed working drawings", "GFC set"], required: true }
     ],
     "Shop Drawings & Detailed Construction Drawings": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
         { label: "Project type?", name: "project_type", type: "select", options: ["Building", "Industrial", "Infra"], required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["Fabrication", "Installation", "Reinforcement drawings"], required: true },
-        { label: "Purpose?", name: "purpose", type: "select", options: ["Execution", "Contractor use"], required: true }
+        { label: "Requirement?", name: "requirement", type: "select", options: ["Fabrication Drawing", "Installation Detail Drawing", "Reinforcement Shop Drawings"], required: true }
     ],
     "Individual House Construction": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
         { label: "What is the plot size?", name: "plot_size", type: "text", required: true },
-        { label: "Required construction type?", name: "construction_type", type: "select", options: ["Ground Floor", "G+1", "G+2"], required: true },
-        { label: "What is your current stage?", name: "stage", type: "select", options: ["Planning", "Ready to start"], required: true }
+        { label: "Required construction type?", name: "construction_type", type: "select", options: ["Ground Floor Buildings", "G+1 Building Construction", "G+2 Building Construction"], required: true }
     ],
-    "Turnkey Villa & Luxury Home Construction": [
+    "Luxury Home Construction": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
         { label: "What is the plot size?", name: "plot_size", type: "text", required: true },
-        { label: "Type of project?", name: "project_type", type: "select", options: ["Villa", "Duplex", "Triplex"], required: true },
-        { label: "What is your requirement?", name: "requirement", type: "select", options: ["Design + Build", "Construction only"], required: true }
+        { label: "Type of project?", name: "project_type", type: "select", options: ["Villa Construction", "Duplex Building Construction", "Triplex Villa Construction"], required: true }
     ],
-    "Turnkey Residential Project Execution": [
+    "Turnkey Residential Construction": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
-        { label: "What is the project type?", name: "project_type", type: "select", options: ["Standalone", "Apartment", "Gated Community"], required: true },
-        { label: "Total built-up area or size?", name: "area_size", type: "text", required: true },
-        { label: "Do you need full turnkey service?", name: "full_turnkey", type: "radio", options: ["Yes", "No"], required: true }
+        { label: "What is the project type?", name: "project_type", type: "select", options: ["Standalone Buildings", "Gated Communities", "Apartment Construction"], required: true },
+        { label: "Total built-up area or size?", name: "area_size", type: "text", required: true }
     ],
-    "Farmhouse & Weekend Home Construction": [
+    "Farmhouse Construction": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
         { label: "Land size?", name: "land_size", type: "text", required: true },
-        { label: "Type of construction?", name: "construction_type", type: "select", options: ["Prefab", "Smart home", "Container", "Traditional"], required: true },
-        { label: "Purpose?", name: "purpose", type: "select", options: ["Personal use", "Rental", "Investment"], required: true }
+        { label: "Type of construction?", name: "construction_type", type: "select", options: ["Prefabricated homes", "smart automation homes", "container homes"], required: true }
     ],
-    "Turnkey Construction for Commercial Projects": [
+    "Turnkey Commercial Building Construction": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
-        { label: "Project type?", name: "project_type", type: "select", options: ["Office", "Mall", "Café", "Restaurant"], required: true },
-        { label: "Total area or number of floors?", name: "area_floors", type: "text", required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["Turnkey", "Construction only"], required: true }
+        { label: "Project type?", name: "project_type", type: "select", options: ["Office Buildings", "Shopping Malls", "Café & Restaurant Construction"], required: true },
+        { label: "Total area or number of floors?", name: "area_floors", type: "text", required: true }
     ],
-    "Institutional Building Construction": [
+    "Institutional & Industrial Building Construction": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
-        { label: "Project type?", name: "project_type", type: "select", options: ["School", "College", "Warehouse", "Shed"], required: true },
-        { label: "Land or built-up area?", name: "area", type: "text", required: true },
-        { label: "Purpose?", name: "purpose", type: "select", options: ["New build", "Expansion"], required: true }
+        { label: "Project type?", name: "project_type", type: "select", options: ["Schools & colleges Buildings", "Ware houses", "industrial sheds"], required: true },
+        { label: "Land or built-up area?", name: "area", type: "text", required: true }
     ],
     "Resort, Hotel & Hospitality Construction": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
-        { label: "Project type?", name: "project_type", type: "select", options: ["Resort", "Hotel", "Convention Center"], required: true },
-        { label: "Land area or number of rooms?", name: "area_rooms", type: "text", required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["Design + Build", "Construction only"], required: true }
+        { label: "Project type?", name: "project_type", type: "select", options: ["Luxury Resorts", "Convention Centres", "Business hotels"], required: true },
+        { label: "Land area or number of rooms?", name: "area_rooms", type: "text", required: true }
     ],
-    "Mud House Construction (Green Sustainable Construction)": [
+    "Green Sustainable Construction": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
-        { label: "Land size?", name: "land_size", type: "text", required: true },
-        { label: "Type of construction?", name: "construction_type", type: "select", options: ["Mud block", "Bamboo", "Eco-friendly"], required: true },
-        { label: "Purpose?", name: "purpose", type: "select", options: ["Residence", "Resort", "Experimental project"], required: true }
-    ],
-    "Café, Restaurant & Retail Building Construction": [
-        { label: "Location of project?", name: "project_location", type: "text", required: true },
-        { label: "Type of space?", name: "space_type", type: "select", options: ["Café", "Restaurant", "Retail store"], required: true },
-        { label: "Area size?", name: "area_size", type: "text", required: true },
-        { label: "Requirements?", name: "requirements", type: "select", options: ["Kitchen", "Seating", "Interiors"], required: true }
-    ],
-    "Studio Apartment & Co-Living Building Construction": [
-        { label: "Project location?", name: "project_location", type: "text", required: true },
-        { label: "Plot size?", name: "plot_size", type: "text", required: true },
-        { label: "Number of units?", name: "unit_count", type: "text", required: true },
-        { label: "Purpose?", name: "purpose", type: "select", options: ["Rental", "Co-living", "Investment"], required: true }
-    ],
-    "Modular & Smart Home Construction": [
-        { label: "Project location?", name: "project_location", type: "text", required: true },
-        { label: "Plot size?", name: "plot_size", type: "text", required: true },
-        { label: "Type of home?", name: "home_type", type: "select", options: ["Modular", "Smart", "Prefabricated"], required: true },
-        { label: "Requirements?", name: "requirements", type: "select", options: ["Automation", "Smart features"], required: true }
+        { label: "Type of construction?", name: "construction_type", type: "select", options: ["Stabilized Mud block houses", "Bamboo Houses"], required: true }
     ],
     "Residential Interior": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
-        { label: "Type of home?", name: "home_type", type: "select", options: ["2BHK", "3BHK", "Duplex"], required: true },
-        { label: "What is the area or number of rooms?", name: "area_rooms", type: "text", required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["Design + Execution", "Execution only", "Turnkey"], required: true }
+        { label: "What is your requirement?", name: "requirement", type: "select", options: ["2BHK/3BHK House Interiors", "Duplex Interior Execution", "Turnkey Residential Interiors"], required: true },
+        { label: "What is the area or number of rooms?", name: "area_rooms", type: "text", required: true }
     ],
     "Commercial Interior": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
-        { label: "Type of space?", name: "space_type", type: "select", options: ["Office", "Restaurant", "Café", "Retail"], required: true },
-        { label: "Total area or seating capacity?", name: "area_seating", type: "text", required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["Turnkey", "Execution", "Renovation"], required: true }
+        { label: "Type of space?", name: "space_type", type: "select", options: ["Corporate Office interiors", "Restaurant & café interiors", "Turnkey Commercial Interior"], required: true },
+        { label: "Total area or seating capacity?", name: "area_seating", type: "text", required: true }
     ],
     "False Ceiling & Designer Ceiling": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
         { label: "Area size for ceiling work?", name: "area_size", type: "text", required: true },
-        { label: "Type of ceiling?", name: "ceiling_type", type: "select", options: ["POP", "PVC", "Grid"], required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["New installation", "Replacement"], required: true }
+        { label: "Type of ceiling?", name: "ceiling_type", type: "select", options: ["POP Ceiling", "PVC Ceiling", "Grid Ceiling"], required: true }
     ],
     "Flooring Execution": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
         { label: "Area size?", name: "area_size", type: "text", required: true },
-        { label: "Type of flooring?", name: "flooring_type", type: "select", options: ["Tiles", "Granite", "Epoxy"], required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["New flooring", "Renovation"], required: true }
+        { label: "Type of flooring?", name: "flooring_type", type: "select", options: ["Verified Tiling flooring", "Granite flooring", "Epoxy flooring"], required: true }
     ],
     "Painting": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
-        { label: "Type of painting?", name: "painting_type", type: "select", options: ["Interior", "Exterior", "Concrete"], required: true },
-        { label: "Area size or number of rooms?", name: "area_rooms", type: "text", required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["Fresh painting", "Repainting"], required: true }
+        { label: "Type of painting?", name: "painting_type", type: "select", options: ["Interior Painting", "Exterior Painting", "Concrete Painting"], required: true },
+        { label: "Area size or number of rooms?", name: "area_rooms", type: "text", required: true }
     ],
     "Electrical Works": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
-        { label: "Type of work?", name: "work_type", type: "select", options: ["House wiring", "Lighting", "Both"], required: true },
-        { label: "Project type?", name: "project_type", type: "select", options: ["New", "Renovation"], required: true },
-        { label: "Any specific requirement?", name: "specific_requirement", type: "text", required: false }
+        { label: "Type of work?", name: "work_type", type: "select", options: ["House Wiring", "Decorative Lighting"], required: true }
     ],
     "Plumbing Works": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
-        { label: "Type of work?", name: "work_type", type: "select", options: ["Water", "Sewerage", "Sanitary"], required: true },
-        { label: "Project stage?", name: "stage", type: "select", options: ["New", "Repair", "Renovation"], required: true },
-        { label: "Area or number of units?", name: "area_units", type: "text", required: true }
+        { label: "Type of work?", name: "work_type", type: "select", options: ["Water Supply Pipeline Fittings", "Sewerage Pipe line Fittings", "Sanitary fittings"], required: true }
     ],
     "Glass & Aluminium Works": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
-        { label: "Type of work?", name: "work_type", type: "select", options: ["Façade", "Partition", "ACP Panels"], required: true },
-        { label: "Area size?", name: "area_size", type: "text", required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["New installation", "Replacement"], required: true }
+        { label: "Type of work?", name: "work_type", type: "select", options: ["Commercial Façade Works", "Partition Works", "ACP Panel works"], required: true },
+        { label: "Area size?", name: "area_size", type: "text", required: true }
     ],
     "Indoor Landscaping": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
-        { label: "Type of setup?", name: "setup_type", type: "select", options: ["Green balcony", "Indoor plants", "Terrace garden"], required: true },
-        { label: "Area size?", name: "area_size", type: "text", required: true },
-        { label: "Purpose?", name: "purpose", type: "select", options: ["Decoration", "Lifestyle", "Commercial"], required: true }
+        { label: "Type of setup?", name: "setup_type", type: "select", options: ["Planting Island", "Terrace Gardening", "Green Balcony"], required: true },
+        { label: "Area size?", name: "area_size", type: "text", required: true }
     ],
     "Outdoor Landscaping": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
         { label: "Area size?", name: "area_size", type: "text", required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["Lawn", "Plantation", "Pathway"], required: true },
-        { label: "Purpose?", name: "purpose", type: "select", options: ["Villa", "Layout", "Commercial space"], required: true }
+        { label: "Requirement?", name: "requirement", type: "select", options: ["Lawn development", "Plantation work", "pathway pavers"], required: true }
     ],
     "Home Theatre": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
-        { label: "Room size?", name: "room_size", type: "text", required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["Full setup", "Acoustic panels only"], required: true },
-        { label: "Purpose?", name: "purpose", type: "select", options: ["Home use", "Premium experience"], required: true }
+        { label: "Requirement?", name: "requirement", type: "select", options: ["Home theatre room setup", "Acoustic panel installation"], required: true },
+        { label: "Room size?", name: "room_size", type: "text", required: true }
     ],
     "Home Automation": [
         { label: "Where is your project located?", name: "project_location", type: "text", required: true },
-        { label: "Type of automation?", name: "automation_type", type: "select", options: ["Security", "Locks", "Fire safety", "Full automation"], required: true },
-        { label: "Property type?", name: "property_type", type: "select", options: ["Home", "Villa", "Apartment"], required: true },
-        { label: "Requirement?", name: "requirement", type: "select", options: ["New installation", "Upgrade"], required: true }
+        { label: "Type of automation?", name: "automation_type", type: "select", options: ["Gas, Fire & smoke detection Automation", "Wardrobe locks, smart door locks automation", "Smart Security System"], required: true }
     ],
     "Cement": [
         { label: "Delivery location?", name: "delivery_location", type: "text", required: true },
