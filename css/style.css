@@ -415,8 +415,8 @@ img {
 }
 
 .page-surveying .survey-card-content h3 {
-    font-size: 1.2rem;
-    font-weight: 800;
+    font-size: 1rem;
+    font-weight: 600;
     color: #000000;
     background: none;
     padding: 0;
@@ -439,7 +439,7 @@ img {
     margin-bottom: 8px;
     color: #004b87;
     font-weight: 700;
-    font-size: 0.95rem;
+    font-size: 0.75rem;
     line-height: 1.4;
 }
 
