@@ -373,6 +373,130 @@ img {
     }
 }
 
+/* Surveying Page Custom Layout */
+.page-surveying .surveying-services-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.page-surveying .survey-card {
+    background: #ffffff;
+    border: none;
+    border-radius: 12px;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    align-items: stretch;
+}
+
+.page-surveying .survey-card-icon {
+    flex: 0 0 40%;
+    margin-right: 0;
+    border-radius: 0;
+    background: transparent;
+    min-height: 100%;
+}
+
+.page-surveying .survey-card-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.page-surveying .survey-card-content {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #ffffff;
+}
+
+.page-surveying .survey-card-content h3 {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #000000;
+    background: none;
+    padding: 0;
+    clip-path: none;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    line-height: 1.2;
+}
+
+.page-surveying .survey-card-content ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 25px;
+}
+
+.page-surveying .survey-card-content ul li {
+    position: relative;
+    padding-left: 15px;
+    margin-bottom: 8px;
+    color: #004b87;
+    font-weight: 700;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.page-surveying .survey-card-content ul li + li {
+    margin-top: 10px;
+}
+
+.page-surveying .survey-card-content ul li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #004b87;
+}
+
+.page-surveying .survey-btn {
+    margin-top: auto;
+    display: inline-block;
+    padding: 10px 15px;
+    background: #a8e6cf;
+    color: #000000;
+    border-radius: 25px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    border: none;
+    align-self: flex-start;
+}
+
+.page-surveying .survey-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    border: none;
+}
+
+.page-surveying .survey-card:hover .survey-btn {
+    background: #90d8be;
+    color: #000000;
+}
+
+@media (max-width: 992px) {
+    .page-surveying .surveying-services-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-surveying .survey-card {
+        flex-direction: column;
+    }
+    .page-surveying .survey-card-icon {
+        flex: 0 0 250px;
+        min-height: 250px;
+    }
+    .page-surveying .survey-card-content {
+        padding: 20px;
+    }
+}
+
 @media (max-width: 576px) {
     .logo img {
         height: 70px;
