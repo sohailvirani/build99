@@ -24,6 +24,10 @@ body {
     padding-top: 80px; /* Space for fixed header */
 }
 
+body.service-page {
+    font-family: 'Futura', 'Futura PT', 'Trebuchet MS', Arial, sans-serif;
+}
+
 a {
     text-decoration: none;
     color: inherit;
@@ -1856,7 +1860,7 @@ img {
 .project-item img {
     width: 100%;
     height: 180px;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 4px;
     transition: transform 0.3s;
 }
