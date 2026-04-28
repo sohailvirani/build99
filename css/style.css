@@ -618,15 +618,15 @@ img {
 }
 
 .page-surveying .survey-card-content h3 {
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: 1.1rem;
+    font-weight: 900;
     color: #000000;
     background: none;
     padding: 0;
     clip-path: none;
     margin-bottom: 15px;
     text-transform: uppercase;
-    letter-spacing: 0;
+    letter-spacing: 0.5px;
     line-height: 1.2;
 }
 
@@ -638,11 +638,11 @@ img {
 
 .page-surveying .survey-card-content ul li {
     position: relative;
-    padding-left: 15px;
+    padding-left: 18px;
     margin-bottom: 8px;
     color: #004b87;
-    font-weight: 700;
-    font-size: 0.75rem;
+    font-weight: 600;
+    font-size: 0.85rem;
     line-height: 1.4;
 }
 
@@ -655,6 +655,9 @@ img {
     position: absolute;
     left: 0;
     color: #004b87;
+    font-weight: bold;
+    font-size: 1.1rem;
+    top: 0;
 }
 
 .page-surveying .survey-btn {
