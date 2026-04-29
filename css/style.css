@@ -1105,11 +1105,36 @@ img {
 
 /* Footer */
 .site-footer {
-    background-color: #5966c7;
-    color: #bbb;
+    background-color: #f2f3f5;
+    color: #000000;
     padding: 60px 0 20px;
     font-size: 0.9rem;
     position: relative;
+}
+
+.site-footer a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.site-footer a:hover {
+    color: #000000;
+    text-decoration: underline;
+}
+
+.site-footer .footer-widget h3 {
+    color: #000000;
+}
+
+.site-footer .social-icons a {
+    background-color: transparent;
+    border: 1px solid #000000;
+    color: #000000;
+}
+
+.site-footer .social-icons a:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+    color: #000000;
 }
 
 .footer-top {
@@ -1117,6 +1142,28 @@ img {
     grid-template-columns: 1.5fr 1fr 1fr 1fr;
     gap: 30px;
     padding-bottom: 40px;
+}
+
+@media (min-width: 993px) {
+    .site-footer .footer-top {
+        column-gap: 0;
+    }
+
+    .site-footer .footer-top > .footer-widget {
+        padding: 0 25px;
+    }
+
+    .site-footer .footer-top > .footer-widget:first-child {
+        padding-left: 0;
+    }
+
+    .site-footer .footer-top > .footer-widget:last-child {
+        padding-right: 0;
+    }
+
+    .site-footer .footer-top > .footer-widget:not(:first-child) {
+        border-left: 1px solid #c9ccd1;
+    }
 }
 
 .footer-widget h3 {
@@ -1195,7 +1242,7 @@ img {
 }
 
 .footer-bottom {
-    border-top: 1px solid #333;
+    border-top: 1px solid #c9ccd1;
     padding-top: 20px;
     display: flex;
     justify-content: center;
