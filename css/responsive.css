@@ -105,7 +105,7 @@
     
     /* Header layout handled in style.css */
     
-    .logo img { height: 70px; }
+    .logo img { height: 45px; }
     
     .logo-tagline { display: none; }
     .header-search .search-form { grid-template-columns: 1fr 44px; }

@@ -556,7 +556,6 @@ img {
     }
     
     .desktop-menu, 
-    .header-search, 
     .header-social-block, 
     .header-actions,
     .header-right-group {
@@ -569,6 +568,23 @@ img {
         justify-content: space-between;
         align-items: center;
         height: 70px;
+    }
+
+    .header-search {
+        display: flex !important;
+        flex: 1 1 auto;
+        margin: 0 10px;
+        padding-left: 0;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        background: #ffffff;
+        height: 38px;
+        overflow: hidden;
+    }
+
+    .header-search-input {
+        font-size: 0.85rem;
+        padding: 0 10px;
     }
 
     .logo img {
@@ -1089,7 +1105,7 @@ img {
 
 /* Footer */
 .site-footer {
-    background-color: #1a1a1a;
+    background-color: #5966c7;
     color: #bbb;
     padding: 60px 0 20px;
     font-size: 0.9rem;
