@@ -1996,6 +1996,12 @@ img {
     align-items: center;
 }
 
+@media (max-width: 576px) {
+    .page-header.service-hero {
+        background-image: var(--service-hero-mobile) !important;
+    }
+}
+
 .header-overlay {
     background: rgba(0, 0, 0, 0.6);
     position: absolute;
