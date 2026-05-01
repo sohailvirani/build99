@@ -2121,6 +2121,46 @@ img {
     background: #fff;
 }
 
+.why-us-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+}
+
+.why-us-card {
+    background: #f2f3f5;
+    border: 1px solid #e1e4ea;
+    border-radius: 18px;
+    padding: 26px 22px;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
+}
+
+.why-us-card h3 {
+    margin: 0 0 10px;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #0b1f3a;
+}
+
+.why-us-card p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #1f2937;
+}
+
+@media (max-width: 992px) {
+    .why-us-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .why-us-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
 .why-us-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
